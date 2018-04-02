@@ -7,9 +7,14 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SettingsPage } from '../pages/settings/settings';
+import { CardPage } from '../pages/card/card';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AppPreferences } from '@ionic-native/app-preferences';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Brightness } from '@ionic-native/brightness';
 
 @NgModule({
   declarations: [
@@ -17,7 +22,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    SettingsPage,
+    CardPage
   ],
   imports: [
     BrowserModule,
@@ -29,11 +36,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    SettingsPage,
+    CardPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    AppPreferences,
+    BarcodeScanner,
+    Brightness,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
