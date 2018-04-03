@@ -1,0 +1,14 @@
+dist: trusty
+sudo: required
+language: node_js
+node_js:
+  - "node"
+  - "lts/*"
+
+before_install:
+  - npm i -g ionic cordova
+
+cache:
+  directories:
+    - "node_modules"
+
