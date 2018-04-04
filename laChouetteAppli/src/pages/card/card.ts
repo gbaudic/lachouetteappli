@@ -18,6 +18,10 @@ import { Brightness } from '@ionic-native/brightness';
 })
 export class CardPage {
   let brightnessValue: number;
+  cardNumber: string;
+  firstName = 'Prénom';
+  lastName = 'Nom';
+  
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -28,7 +32,39 @@ export class CardPage {
   }
 
   ionViewDidLoad() {
+    // Try to get stored number in preferences (along with names)
+    this.appPreferences.fetch('firstName').then((res) => { this.firstName = res; });
+    this.appPreferences.fetch('lastName').then((res) => { this.lastName = res; });
+    
+    this.appPreferences.fetch('cardNumber').then((res) => { this.cardNumber = res; });
+    
+    // If success, display the card and set brightness to max
+    // TODO: fetch is asynchronous!!!!
+    if(this.cardNumber) {
+      this.brightnessValue = this.brightness.getBrightness();
+      this.brightness.setBrightness(1);
+    } else {
+      // Open scanning so we can save the value
+      this.launchScan();
+    }
     console.log('ionViewDidLoad CardPage');
   }
+  
+  launchScan(): void {
+    this.barcodeScanner.scan({formats: 'EAN_13'}).then(barcodeData => {
+      console.log('Barcode data', barcodeData);
+      this.cardNumber = barcodeData.text;
+      this.appPreferences.store('cardNumber',barcodeData.text)
+                         .then();
+    }).catch(err => {
+      console.log('Error', err);
+    });
+  }
 
+  ionViewDidLeave() {
+    // Restore brightness to previous value
+    if(this.brightnessValue) {
+      this.brightness.setBrightness(this.brightnessValue);
+    }
+  }
 }

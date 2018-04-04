@@ -10,5 +10,14 @@ export class HomePage {
   constructor(public navCtrl: NavController) {
 
   }
+  
+  addItem() {
+  
+  }
 
+}
+
+export class ShoppingItem {
+  name: string;
+  bought = false;
 }

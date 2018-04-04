@@ -14,5 +14,10 @@
 
 
 <ion-content padding>
-
+    <ion-item *ngIf="cardNumber">
+        <!--TODO icon b&w-->
+        <p>{{firstName}}</p>
+        <p>{{lastName}}</p>
+        <!--TODO barcode generation-->
+    </ion-item>
 </ion-content>
