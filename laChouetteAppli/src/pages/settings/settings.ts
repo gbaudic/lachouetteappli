@@ -15,6 +15,9 @@ import { AppPreferences } from '@ionic-native/app-preferences';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
+  firstName: string;
+  lastName: string;
+  email: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -23,6 +26,14 @@ export class SettingsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
+	this.appPreferences.fetch('firstName').then((res) => { this.firstName = res; });
+	this.appPreferences.fetch('lastName').then((res) => { this.lastName = res; });
+	this.appPreferences.fetch('email').then((res) => { this.email = res; });
+  }
+  
+  ionViewDidLeave() {
+    // Save changes
+	
   }
 
 }
