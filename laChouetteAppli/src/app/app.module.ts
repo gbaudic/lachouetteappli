@@ -15,6 +15,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
+import { Dialogs } from '@ionic-native/dialogs';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { Brightness } from '@ionic-native/brightness';
     AppPreferences,
     BarcodeScanner,
     Brightness,
+	Dialogs,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
