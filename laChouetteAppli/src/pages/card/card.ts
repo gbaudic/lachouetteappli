@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
+import { bwipjs } from 'bwip-js';
 
 /**
  * Generated class for the CardPage page.
@@ -41,6 +42,19 @@ export class CardPage {
         .then( () => {
             // If success, display the card and set brightness to max
             if(this.cardNumber) {
+            bwipjs('leBarcode', {
+                bcid:        'EAN-13',       // Barcode type
+                text:        this.cardNumber, // Text to encode
+                scale:       2,               // 3x scaling factor
+                height:      20,              // Bar height, in millimeters
+                includetext: false,            // Show human-readable text
+                textxalign:  'center',        // Always good to set this
+                }, function (err, cvs) {
+                    if (err) {
+                        // `err` may be a string or Error object
+                        console.log(err);
+                    }
+            });
               this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
                             .then(() => this.brightness.setBrightness(1) );
             } else {
