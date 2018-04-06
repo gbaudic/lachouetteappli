@@ -7,7 +7,7 @@ import { Dialogs } from '@ionic-native/dialogs';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  items: ShoppingItems[];
+  items: ShoppingItem[] = [];
 
   constructor(public navCtrl: NavController,
       public dialogs: Dialogs) {

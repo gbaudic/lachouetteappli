@@ -17,7 +17,7 @@ import { Brightness } from '@ionic-native/brightness';
   templateUrl: 'card.html',
 })
 export class CardPage {
-  let brightnessValue: number;
+  brightnessValue: number;
   cardNumber: string;
   firstName = 'Prénom';
   lastName = 'Nom';
@@ -36,18 +36,19 @@ export class CardPage {
     this.appPreferences.fetch('firstName').then((res) => { this.firstName = res; });
     this.appPreferences.fetch('lastName').then((res) => { this.lastName = res; });
     
-    this.appPreferences.fetch('cardNumber').then((res) => { this.cardNumber = res; });
-    
-    // If success, display the card and set brightness to max
-    // TODO: fetch is asynchronous!!!!
-    if(this.cardNumber) {
-      this.brightnessValue = this.brightness.getBrightness();
-      this.brightness.setBrightness(1);
-    } else {
-      // Open scanning so we can save the value
-      this.launchScan();
-    }
-    console.log('ionViewDidLoad CardPage');
+    this.appPreferences.fetch('cardNumber')
+        .then((res) => { this.cardNumber = res; })
+        .then( () => {
+            // If success, display the card and set brightness to max
+            if(this.cardNumber) {
+              this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
+                            .then(() => this.brightness.setBrightness(1) );
+            } else {
+              // Open scanning so we can save the value
+              this.launchScan();
+            }
+        });
+    // console.log('ionViewDidLoad CardPage');
   }
   
   launchScan(): void {
@@ -58,6 +59,7 @@ export class CardPage {
                          .then();
     }).catch(err => {
       console.log('Error', err);
+      // TODO: also show error to user via toast or 'bubble'
     });
   }
 

@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title>Carte</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="create" (click)="launchScan()"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -19,5 +24,6 @@
         <p>{{firstName}}</p>
         <p>{{lastName}}</p>
         <!--TODO barcode generation-->
+        <canvas id="leBarcode"></canvas>
     </ion-item>
 </ion-content>

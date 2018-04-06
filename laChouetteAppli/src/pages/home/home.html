@@ -6,10 +6,10 @@
 
 <ion-content padding>
   
-  <ion-list>
+  <ion-list *ngIf="items.length > 0">
     <ion-item *ngFor="let it of items">
       <ion-checkbox [(ngModel)]="it.bought"></ion-checkbox>
-      <p [ngClass]="{bought-item: it.bought }">{{it.name}}</p>
+      <p [ngClass]="{'bought-item': it.bought }">{{it.name}}</p>
       <button ion-button icon-only item-end (click)="deleteItem(it)">
         <ion-icon name="trash"></ion-icon>
       </button>
