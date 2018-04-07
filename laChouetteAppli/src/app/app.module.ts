@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { CardPage } from '../pages/card/card';
+import { CalculatorPage } from '../pages/calculator/calculator';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,7 +26,8 @@ import { Dialogs } from '@ionic-native/dialogs';
     HomePage,
     TabsPage,
     SettingsPage,
-    CardPage
+    CardPage,
+	CalculatorPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { Dialogs } from '@ionic-native/dialogs';
     HomePage,
     TabsPage,
     SettingsPage,
-    CardPage
+    CardPage,
+	CalculatorPage
   ],
   providers: [
     StatusBar,
