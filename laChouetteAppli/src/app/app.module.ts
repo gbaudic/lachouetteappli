@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { CardPage } from '../pages/card/card';
 import { CalculatorPage } from '../pages/calculator/calculator';
+import { TafPage } from '../pages/taf/taf';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -17,6 +18,7 @@ import { AppPreferences } from '@ionic-native/app-preferences';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
 import { Dialogs } from '@ionic-native/dialogs';
+import { TafProvider } from '../providers/taf/taf';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { Dialogs } from '@ionic-native/dialogs';
     TabsPage,
     SettingsPage,
     CardPage,
-	CalculatorPage
+	CalculatorPage,
+	TafPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { Dialogs } from '@ionic-native/dialogs';
     TabsPage,
     SettingsPage,
     CardPage,
-	CalculatorPage
+	CalculatorPage,
+	TafPage
   ],
   providers: [
     StatusBar,
@@ -51,7 +55,8 @@ import { Dialogs } from '@ionic-native/dialogs';
     BarcodeScanner,
     Brightness,
 	Dialogs,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    TafProvider
   ]
 })
 export class AppModule {}
