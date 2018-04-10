@@ -9,7 +9,6 @@ import { TafProvider } from '../../providers/taf/taf';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-taf',
   templateUrl: 'taf.html',

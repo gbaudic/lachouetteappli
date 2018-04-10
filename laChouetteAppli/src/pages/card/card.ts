@@ -12,7 +12,6 @@ import { bwipjs } from 'bwip-js';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-card',
   templateUrl: 'card.html',

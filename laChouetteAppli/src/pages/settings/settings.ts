@@ -9,7 +9,6 @@ import { AppPreferences } from '@ionic-native/app-preferences';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
