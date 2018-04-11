@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AppPreferences } from '@ionic-native/app-preferences';
+import { NavController, NavParams } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
 import { bwipjs } from 'bwip-js';
@@ -25,7 +25,7 @@ export class CardPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private appPreferences: AppPreferences,
+    private appPreferences: NativeStorage,
     private barcodeScanner: BarcodeScanner,
     private brightness: Brightness
     ) {
@@ -33,10 +33,10 @@ export class CardPage {
 
   ionViewDidLoad() {
     // Try to get stored number in preferences (along with names)
-    this.appPreferences.fetch('firstName').then((res) => { this.firstName = res; });
-    this.appPreferences.fetch('lastName').then((res) => { this.lastName = res; });
+    this.appPreferences.getItem('firstName').then((res) => { this.firstName = res; });
+    this.appPreferences.getItem('lastName').then((res) => { this.lastName = res; });
     
-    this.appPreferences.fetch('cardNumber')
+    this.appPreferences.getItem('cardNumber')
         .then((res) => { this.cardNumber = res; })
         .then( () => {
             // If success, display the card and set brightness to max
@@ -68,7 +68,7 @@ export class CardPage {
     this.barcodeScanner.scan({formats: 'EAN_13'}).then(barcodeData => {
       console.log('Barcode data', barcodeData);
       this.cardNumber = barcodeData.text;
-      this.appPreferences.store('cardNumber',barcodeData.text)
+      this.appPreferences.setItem('cardNumber',barcodeData.text)
                          .then();
     }).catch(err => {
       console.log('Error', err);

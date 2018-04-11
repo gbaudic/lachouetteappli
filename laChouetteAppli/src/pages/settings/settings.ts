@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AppPreferences } from '@ionic-native/app-preferences';
+import { NavController, NavParams } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 /**
  * Generated class for the SettingsPage page.
@@ -20,19 +20,21 @@ export class SettingsPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private appPreferences: AppPreferences) {
+    private appPreferences: NativeStorage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
-	this.appPreferences.fetch('firstName').then((res) => { this.firstName = res; });
-	this.appPreferences.fetch('lastName').then((res) => { this.lastName = res; });
-	this.appPreferences.fetch('email').then((res) => { this.email = res; });
+	this.appPreferences.getItem('firstName').then((res) => { this.firstName = res; });
+	this.appPreferences.getItem('lastName').then((res) => { this.lastName = res; });
+	this.appPreferences.getItem('email').then((res) => { this.email = res; });
   }
   
   ionViewDidLeave() {
     // Save changes
-	
+	this.appPreferences.setItem('firstName',this.firstName).then();
+	this.appPreferences.setItem('lastName',this.lastName).then();
+	this.appPreferences.setItem('email',this.email).then();
   }
 
 }

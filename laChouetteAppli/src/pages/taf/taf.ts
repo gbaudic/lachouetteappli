@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TafProvider } from '../../providers/taf/taf';
 
 /**

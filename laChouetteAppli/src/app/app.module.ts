@@ -14,7 +14,7 @@ import { TafPage } from '../pages/taf/taf';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AppPreferences } from '@ionic-native/app-preferences';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
 import { Dialogs } from '@ionic-native/dialogs';
@@ -51,7 +51,7 @@ import { TafProvider } from '../providers/taf/taf';
   providers: [
     StatusBar,
     SplashScreen,
-    AppPreferences,
+    NativeStorage,
     BarcodeScanner,
     Brightness,
 	Dialogs,

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
   selector: 'page-home',
@@ -10,8 +11,17 @@ export class HomePage {
   items: ShoppingItem[] = [];
 
   constructor(public navCtrl: NavController,
-      public dialogs: Dialogs) {
+      public dialogs: Dialogs,
+      private nativeStorage: NativeStorage) {
 
+  }
+  
+  ionViewDidLoad() {
+    // Load saved data if exists
+  }
+  
+  ionViewDidLeave() {
+    // Save data
   }
   
   addItem(): void {
