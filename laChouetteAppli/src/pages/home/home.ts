@@ -18,10 +18,19 @@ export class HomePage {
   
   ionViewDidLoad() {
     // Load saved data if exists
+      this.nativeStorage.getItem('shoppingList').then(
+          data => { this.items = items; },
+          err => {
+              // TODO: toast 'Aucune liste trouvée'
+        });
   }
   
   ionViewDidLeave() {
     // Save data
+    this.nativeStorage.setItem('shoppingList', this.items).then(
+        () => {},
+        err => {}
+    );
   }
   
   addItem(): void {
@@ -31,7 +40,19 @@ export class HomePage {
           if ((theResult.buttonIndex == 1) && (theResult.input1 !== '')) {
             this.items.push({ name: theResult.input1, bought: false });                      
           }
-        });
+    });
+  }
+  
+  editItem(item: ShoppingItem): void {
+    let index = this.items.indexOf(item);   
+    if (index > -1) {
+      this.dialogs.prompt('Modifier item', '', ['OK', 'Annuler'], this.items[index].name).then(
+      theResult => {    
+          if ((theResult.buttonIndex == 1) && (theResult.input1 !== '')) {
+            this.items[index].name = theResult.input1;                      
+          }
+    });
+    }
   }
   
   deleteItem(item: ShoppingItem): void {
