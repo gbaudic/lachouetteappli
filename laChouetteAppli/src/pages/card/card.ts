@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
@@ -27,7 +27,8 @@ export class CardPage {
     public navParams: NavParams,
     private appPreferences: NativeStorage,
     private barcodeScanner: BarcodeScanner,
-    private brightness: Brightness
+    private brightness: Brightness,
+    private toastCtrl: ToastController
     ) {
   }
 
@@ -72,7 +73,11 @@ export class CardPage {
                          .then();
     }).catch(err => {
       console.log('Error', err);
-      // TODO: also show error to user via toast or 'bubble'
+      let toast = this.toastCtrl.create({
+        message: err,
+        duration: 1500
+      });
+      toast.present();
     });
   }
 

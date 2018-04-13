@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
 import { NativeStorage } from '@ionic-native/native-storage';
 
@@ -11,6 +11,7 @@ export class HomePage {
   items: ShoppingItem[] = [];
 
   constructor(public navCtrl: NavController,
+      private toastCtrl: ToastController,
       public dialogs: Dialogs,
       private nativeStorage: NativeStorage) {
 
@@ -21,7 +22,12 @@ export class HomePage {
       this.nativeStorage.getItem('shoppingList').then(
           data => { this.items = items; },
           err => {
-              // TODO: toast 'Aucune liste trouvée'
+            let toast = this.toastCtrl.create({
+            message: 'Aucune liste trouvée',
+            duration: 1500
+            });
+            toast.present();
+            console.log(err);
         });
   }
   
@@ -29,7 +35,14 @@ export class HomePage {
     // Save data
     this.nativeStorage.setItem('shoppingList', this.items).then(
         () => {},
-        err => {}
+        err => {
+          let toast = this.toastCtrl.create({
+            message: 'Problème de sauvegarde',
+            duration: 1500
+            });
+            toast.present();
+            console.log(err);
+        }
     );
   }
   

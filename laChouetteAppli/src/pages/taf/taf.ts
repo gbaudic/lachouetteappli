@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { TafProvider } from '../../providers/taf/taf';
 
 /**
@@ -17,7 +17,8 @@ export class TafPage {
   nextTAFs: TafClass[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              private loadingCtrl: LoadingController, private tafService: TafProvider) {
+              private loadingCtrl: LoadingController, private tafService: TafProvider,
+              private toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
