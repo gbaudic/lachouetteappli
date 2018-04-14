@@ -19,7 +19,7 @@
 
 
 <ion-content padding>
-    <ion-item *ngIf="cardNumber">
+    <ion-item *ngIf="cardNumber; else elseBlock">
         <!--TODO icon b&w-->
         <img alt="logo" />
         <p>{{firstName}}</p>
@@ -27,4 +27,9 @@
         <!--TODO barcode generation-->
         <canvas id="leBarcode"></canvas>
     </ion-item>
+	<ng-template #elseBlock>
+		<ion-item>
+			Aucune carte mémorisée
+		</ion-item>
+	</ng-template>
 </ion-content>

@@ -20,7 +20,7 @@ export class HomePage {
   ionViewDidLoad() {
     // Load saved data if exists
       this.nativeStorage.getItem('shoppingList').then(
-          data => { this.items = items; },
+          data => { this.items = data; },
           err => {
             let toast = this.toastCtrl.create({
             message: 'Aucune liste trouvée',
@@ -37,7 +37,7 @@ export class HomePage {
         () => {},
         err => {
           let toast = this.toastCtrl.create({
-            message: 'Problème de sauvegarde',
+            message: 'Problème de sauvegarde : '+ err,
             duration: 1500
             });
             toast.present();
@@ -47,6 +47,7 @@ export class HomePage {
   }
   
   addItem(): void {
+	console.log('Add clicked');
     // Open dialog and add to array
     this.dialogs.prompt('Ajouter item', '', ['OK', 'Annuler'], '').then(
       theResult => {    
