@@ -25,16 +25,16 @@ export class SettingsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
-	this.appPreferences.getItem('firstName').then((res) => { this.firstName = res; });
-	this.appPreferences.getItem('lastName').then((res) => { this.lastName = res; });
-	this.appPreferences.getItem('email').then((res) => { this.email = res; });
+	this.appPreferences.getItem('firstName').then((res) => { this.firstName = res.firstName; });
+	this.appPreferences.getItem('lastName').then((res) => { this.lastName = res.lastName; });
+	this.appPreferences.getItem('email').then((res) => { this.email = res.email; });
   }
   
   ionViewDidLeave() {
     // Save changes
-	this.appPreferences.setItem('firstName',this.firstName).then();
-	this.appPreferences.setItem('lastName',this.lastName).then();
-	this.appPreferences.setItem('email',this.email).then();
+	this.appPreferences.setItem('firstName',{firstName: this.firstName}).then();
+	this.appPreferences.setItem('lastName',{lastName: this.lastName}).then();
+	this.appPreferences.setItem('email',{email: this.email}).then();
   }
 
 }

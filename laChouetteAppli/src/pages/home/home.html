@@ -10,9 +10,14 @@
     <ion-item *ngFor="let it of items">
       <ion-checkbox [(ngModel)]="it.bought"></ion-checkbox>
       <p [ngClass]="{'bought-item': it.bought }">{{it.name}}</p>
-      <button ion-button icon-only item-end (click)="deleteItem(it)">
+	  <ion-buttons item-end>
+	    <button ion-button icon-only (click)="editItem(it)">
+		  <ion-icon name="create"></ion-icon>
+		</button>
+      <button ion-button icon-only (click)="deleteItem(it)">
         <ion-icon name="trash"></ion-icon>
       </button>
+	  </ion-buttons>
     </ion-item>
   </ion-list>
   

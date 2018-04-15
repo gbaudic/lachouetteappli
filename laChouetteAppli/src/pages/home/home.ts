@@ -20,7 +20,7 @@ export class HomePage {
   ionViewDidLoad() {
     // Load saved data if exists
       this.nativeStorage.getItem('shoppingList').then(
-          data => { this.items = data; },
+          data => { this.items = data.items; },
           err => {
             let toast = this.toastCtrl.create({
             message: 'Aucune liste trouvée',
@@ -33,7 +33,7 @@ export class HomePage {
   
   ionViewDidLeave() {
     // Save data
-    this.nativeStorage.setItem('shoppingList', this.items).then(
+    this.nativeStorage.setItem('shoppingList', {items: this.items}).then(
         () => {},
         err => {
           let toast = this.toastCtrl.create({

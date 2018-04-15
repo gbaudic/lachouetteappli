@@ -3,7 +3,7 @@ import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
-import { bwipjs } from 'bwip-js';
+import { bwipjs } from 'bwip-angular2';
 
 /**
  * Generated class for the CardPage page.
@@ -34,29 +34,15 @@ export class CardPage {
 
   ionViewDidLoad() {
     // Try to get stored number in preferences (along with names)
-    this.appPreferences.getItem('firstName').then((res) => { this.firstName = res; });
-    this.appPreferences.getItem('lastName').then((res) => { this.lastName = res; });
+    this.appPreferences.getItem('firstName').then((res) => { this.firstName = res.firstName; });
+    this.appPreferences.getItem('lastName').then((res) => { this.lastName = res.lastName; });
     
     this.appPreferences.getItem('cardNumber')
-        .then((res) => { this.cardNumber = res; })
+        .then((res) => { this.cardNumber = res.cardNumber; })
         .then( () => {
             // If success, display the card and set brightness to max
             if(this.cardNumber) {
-            bwipjs('leBarcode', {
-                bcid:        'EAN-13',       // Barcode type
-                text:        this.cardNumber, // Text to encode
-                scale:       2,               // 3x scaling factor
-                height:      20,              // Bar height, in millimeters
-                includetext: false,            // Show human-readable text
-                textxalign:  'center',        // Always good to set this
-                }, function (err, cvs) {
-                    if (err) {
-                        // `err` may be a string or Error object
-                        console.log(err);
-                    }
-            });
-              this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
-                            .then(() => this.brightness.setBrightness(1) );
+              this.drawCard();
             } else {
               // Open scanning so we can save the value
               this.launchScan();
@@ -69,8 +55,9 @@ export class CardPage {
     this.barcodeScanner.scan({formats: 'EAN_13'}).then(barcodeData => {
       console.log('Barcode data', barcodeData);
       this.cardNumber = barcodeData.text;
-      this.appPreferences.setItem('cardNumber',barcodeData.text)
+      this.appPreferences.setItem('cardNumber',{cardNumber: barcodeData.text})
                          .then();
+	  this.drawCard();
     }).catch(err => {
       console.log('Error', err);
       let toast = this.toastCtrl.create({
@@ -79,6 +66,24 @@ export class CardPage {
       });
       toast.present();
     });
+  }
+  
+  drawCard(): void {
+    bwipjs('leBarcode', {
+                bcid:        'EAN-13',       // Barcode type
+                text:        this.cardNumber, // Text to encode
+                scale:       2,               // 3x scaling factor
+                height:      20,              // Bar height, in millimeters
+                includetext: false,            // Show human-readable text
+                textxalign:  'center',        // Always good to set this
+                }, function (err, cvs) {
+                    if (err) {
+                        // `err` may be a string or Error object
+                        console.log(err);
+                    }
+            });
+    this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
+            .then(() => this.brightness.setBrightness(1) );
   }
 
   ionViewDidLeave() {
