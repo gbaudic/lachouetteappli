@@ -10,7 +10,7 @@
     <ion-title>Carte</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="launchScan()">
-        <ion-icon name="create"></ion-icon>
+        <ion-icon name="qr-scanner"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -21,9 +21,9 @@
 <ion-content padding>
     <ion-item *ngIf="cardNumber; else elseBlock" text-center>
         <!--TODO icon b&w-->
-        <img alt="logo" />
-        <p>{{firstName}}</p>
-        <p>{{lastName}}</p>
+        <img alt="logo" src="assets/imgs/logo.jpg"/>
+        {{firstName}}<br/>
+           {{lastName}}
         <!--TODO barcode generation-->
         <canvas id="leBarcode"></canvas>
     </ion-item>

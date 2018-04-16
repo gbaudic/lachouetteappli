@@ -10,16 +10,16 @@
 <ion-content padding>
   <ion-item>
     <ion-label floating>Prénom</ion-label>
-    <ion-input type="text" [(value)]="firstName"></ion-input>
+    <ion-input name="first" type="text" [(ngModel)]="firstName"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Nom</ion-label>
-    <ion-input type="text" [(value)]="lastName"></ion-input>
+    <ion-input name="last" type="text" [(ngModel)]="lastName"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>E-mail</ion-label>
-    <ion-input type="email" [(value)]="email"></ion-input>
+    <ion-input name="email" type="email" [(ngModel)]="email"></ion-input>
   </ion-item>
 </ion-content>

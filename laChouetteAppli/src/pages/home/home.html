@@ -9,12 +9,12 @@
   <ion-list *ngIf="items.length > 0">
     <ion-item *ngFor="let it of items">
       <ion-checkbox [(ngModel)]="it.bought"></ion-checkbox>
-      <p [ngClass]="{'bought-item': it.bought }">{{it.name}}</p>
+      <span [ngClass]="{'bought-item': it.bought }">{{it.name}}</span>
 	  <ion-buttons item-end>
-	    <button ion-button icon-only (click)="editItem(it)">
+	    <button ion-button icon-only (click)="editItem(it)" clear>
 		  <ion-icon name="create"></ion-icon>
 		</button>
-      <button ion-button icon-only (click)="deleteItem(it)">
+      <button ion-button icon-only (click)="deleteItem(it)" clear>
         <ion-icon name="trash"></ion-icon>
       </button>
 	  </ion-buttons>

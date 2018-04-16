@@ -32,9 +32,15 @@ export class SettingsPage {
   
   ionViewDidLeave() {
     // Save changes
-	this.appPreferences.setItem('firstName',{firstName: this.firstName}).then();
-	this.appPreferences.setItem('lastName',{lastName: this.lastName}).then();
-	this.appPreferences.setItem('email',{email: this.email}).then();
+	if(this.firstName) {
+	  this.appPreferences.setItem('firstName',{firstName: this.firstName}).then();
+	}
+	if(this.lastName) {
+	  this.appPreferences.setItem('lastName',{lastName: this.lastName}).then();
+	}
+	if(this.email) {
+	  this.appPreferences.setItem('email',{email: this.email}).then();
+	}
   }
 
 }
