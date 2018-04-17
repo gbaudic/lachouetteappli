@@ -16,15 +16,15 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
     <ion-grid>
-        <ion-row *ngFor="let el of amounts">
-            <ion-col col-4 text-right>{{el[0] / 100 | number}} &euro; x</ion-col>
-            <ion-col col-4><ion-input name="`input_${el[0]}`" type="number" min="0" [(ngModel)]="el[1]"></ion-input></ion-col>
-            <ion-col col-4>= {{el[0]*el[1] / 100 | number}} &euro;</ion-col>
+        <ion-row *ngFor="let el of amounts" align-items-center>
+            <ion-col col-4 text-right>{{el[0] / 100 | currency:'EUR':'symbol':'1.2-2':'fr'}} x</ion-col>
+            <ion-col col-4><ion-input name="input_{{el[0]}}" type="number" min="0" [(ngModel)]="el[1]"></ion-input></ion-col>
+            <ion-col col-4>= {{el[0]*el[1] / 100 | currency:'EUR':'symbol':'1.2-2':'fr'}}</ion-col>
         </ion-row>
 	</ion-grid>
 	<ion-item text-right>
-		<strong>Total : {{total / 100 | number}} &euro;</strong>
+		<strong>Total : {{compute() / 100 | currency:'EUR':'symbol':'1.2-2':'fr'}}</strong>
 	</ion-item>
 </ion-content>

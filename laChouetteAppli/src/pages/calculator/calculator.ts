@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -12,7 +12,7 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-calculator',
   templateUrl: 'calculator.html',
 })
-export class CalculatorPage {
+export class CalculatorPage implements OnChanges {
   // Note: all amounts are expressed in cents to get around potential rounding issues
   amounts: Array<[number, number]> = [[1,0],[2,0],[5,0],[10,0],[20,0],[50,0],
 									  [100,0],[200,0],[500,0],[1000,0],[2000,0],[5000,0],[10000,0],[20000,0],[50000,0]];
@@ -20,16 +20,21 @@ export class CalculatorPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
+  
+  ngOnChanges() {
+    this.compute();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalculatorPage');
   }
   
-  compute() {
+  compute(): number {
     this.total = 0;
 	for(let el of this.amounts) {
 	  this.total += el[0]*el[1];
 	}
+	return this.total;
   }
   
   reset() {

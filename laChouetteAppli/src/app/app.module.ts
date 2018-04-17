@@ -1,7 +1,9 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { LOCALE_ID, NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr'
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -56,7 +58,10 @@ import { TafProvider } from '../providers/taf/taf';
     Brightness,
 	Dialogs,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+	{provide: LOCALE_ID, useValue:'fr'},
     TafProvider
   ]
 })
 export class AppModule {}
+
+registerLocaleData(localeFr, 'fr');
