@@ -17,11 +17,13 @@
 
 
 <ion-content padding>
-	<ion-list *ngFor="let el of amounts">
-		{{el[0] / 100 | number}} &euro; x
-		<ion-input type="number" min="0" [(value)]="el[1]"></ion-input>
-		= {{el[0]*el[1] / 100 | number}} &euro;
-	</ion-list>
+    <ion-grid>
+        <ion-row *ngFor="let el of amounts">
+            <ion-col col-4 text-right>{{el[0] / 100 | number}} &euro; x</ion-col>
+            <ion-col col-4><ion-input name="`input_${el[0]}`" type="number" min="0" [(ngModel)]="el[1]"></ion-input></ion-col>
+            <ion-col col-4>= {{el[0]*el[1] / 100 | number}} &euro;</ion-col>
+        </ion-row>
+	</ion-grid>
 	<ion-item text-right>
 		<strong>Total : {{total / 100 | number}} &euro;</strong>
 	</ion-item>
