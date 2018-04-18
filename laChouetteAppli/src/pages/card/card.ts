@@ -70,7 +70,7 @@ export class CardPage {
   
   drawCard(): void {
     bwipjs('leBarcode', {
-                bcid:        'EAN-13',       // Barcode type
+                bcid:        'ean13',       // Barcode type
                 text:        this.cardNumber, // Text to encode
                 scale:       2,               // 3x scaling factor
                 height:      20,              // Bar height, in millimeters
