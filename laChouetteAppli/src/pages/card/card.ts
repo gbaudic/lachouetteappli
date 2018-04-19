@@ -3,7 +3,7 @@ import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
-import { bwipjs } from 'bwip-angular2';
+import  bwipjs  from 'bwip-angular2';
 
 /**
  * Generated class for the CardPage page.
@@ -18,7 +18,7 @@ import { bwipjs } from 'bwip-angular2';
 })
 export class CardPage {
   brightnessValue: number;
-  cardNumber: string; 
+  cardNumber: string = ''; 
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,14 +33,18 @@ export class CardPage {
     // Try to get stored number in preferences (along with names)
     
     this.appPreferences.getItem('cardNumber')
-        .then((res) => { this.cardNumber = res.cardNumber; })
+        .then(res => { this.cardNumber = res.cardNumber; return;}, 
+		err => {
+		  let toast = this.toastCtrl.create({
+		    message: err,
+            duration: 1500
+          });
+          toast.present();
+		})
         .then( () => {
             // If success, display the card and set brightness to max
-            if(this.cardNumber) {
+            if(this.cardNumber != '') {
               this.drawCard();
-            } else {
-              // Open scanning so we can save the value
-              this.launchScan();
             }
         });
     // console.log('ionViewDidLoad CardPage');

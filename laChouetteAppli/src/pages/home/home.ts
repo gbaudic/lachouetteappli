@@ -19,17 +19,16 @@ export class HomePage {
   
   ionViewDidLoad() {
     // Load saved data if exists
-    /*  this.nativeStorage.getItem('shoppingList').then(
-          data => { this.items = data.items; },
-          err => {
-            let toast = this.toastCtrl.create({
-            message: 'Aucune liste trouvée',
-            duration: 1500
-            });
-            toast.present();
-            console.log(err);
-        });*/
-	this.items.push({name: 'test', bought: true});
+    this.nativeStorage.getItem('shoppingList').then(
+	  data => { this.items = data.items; },
+	  err => {
+		let toast = this.toastCtrl.create({
+		message: 'Aucune liste trouvée',
+		duration: 1500
+		});
+		toast.present();
+		console.log(err);
+    });
   }
   
   ionViewDidLeave() {
