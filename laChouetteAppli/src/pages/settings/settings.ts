@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { TafClass } from '../taf/taf';
 
 /**
  * Generated class for the SettingsPage page.
@@ -17,6 +18,7 @@ export class SettingsPage {
   firstName: string;
   lastName: string;
   email: string;
+  tafs: TafClass[] = [];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -41,6 +43,10 @@ export class SettingsPage {
 	if(this.email) {
 	  this.appPreferences.setItem('email',{email: this.email}).then();
 	}
+  }
+  
+  addItem(): void {
+    // TODO
   }
 
 }

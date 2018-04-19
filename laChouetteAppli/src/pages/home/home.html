@@ -4,12 +4,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   
   <ion-list *ngIf="items.length > 0">
     <ion-item *ngFor="let it of items">
-      <ion-checkbox [(ngModel)]="it.bought"></ion-checkbox>
-      <span [ngClass]="{'bought-item': it.bought }">{{it.name}}</span>
+      <ion-checkbox name="chk_{{it.name}}" [(ngModel)]="it.bought"></ion-checkbox>
+	  <ion-label [ngClass]="{'bought-item': it.bought }">{{it.name}}</ion-label>
+	  <!--any idea why we need a ion-label in this case? it is nowhere in the doc!-->
 	  <ion-buttons item-end>
 	    <button ion-button icon-only (click)="editItem(it)" clear>
 		  <ion-icon name="create"></ion-icon>

@@ -18,10 +18,7 @@ import { bwipjs } from 'bwip-angular2';
 })
 export class CardPage {
   brightnessValue: number;
-  cardNumber: string;
-  firstName = 'Prénom';
-  lastName = 'Nom';
-  
+  cardNumber: string; 
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,8 +31,6 @@ export class CardPage {
 
   ionViewDidLoad() {
     // Try to get stored number in preferences (along with names)
-    this.appPreferences.getItem('firstName').then((res) => { this.firstName = res.firstName; });
-    this.appPreferences.getItem('lastName').then((res) => { this.lastName = res.lastName; });
     
     this.appPreferences.getItem('cardNumber')
         .then((res) => { this.cardNumber = res.cardNumber; })

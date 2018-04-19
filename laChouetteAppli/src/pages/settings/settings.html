@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Param&egrave;tres</ion-title>
+    <ion-title>Mon pense-b&ecirc;te TAF</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -22,4 +22,12 @@
     <ion-label floating>E-mail</ion-label>
     <ion-input name="email" type="email" [(ngModel)]="email"></ion-input>
   </ion-item>
+  
+  <ion-list>
+  
+  </ion-list>
+  
+  <ion-fab right bottom>
+    <button ion-fab icon-only (click)="addItem()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

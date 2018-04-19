@@ -20,11 +20,7 @@
 
 <ion-content padding>
     <ion-item *ngIf="cardNumber; else elseBlock" text-center>
-        <!--TODO icon b&w-->
         <img alt="logo" src="assets/imgs/logo.jpg"/>
-        {{firstName}}<br/>
-           {{lastName}}
-        <!--TODO barcode generation-->
         <canvas id="leBarcode"></canvas>
     </ion-item>
 	<ng-template #elseBlock>

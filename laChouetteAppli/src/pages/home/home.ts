@@ -19,7 +19,7 @@ export class HomePage {
   
   ionViewDidLoad() {
     // Load saved data if exists
-      this.nativeStorage.getItem('shoppingList').then(
+    /*  this.nativeStorage.getItem('shoppingList').then(
           data => { this.items = data.items; },
           err => {
             let toast = this.toastCtrl.create({
@@ -28,7 +28,8 @@ export class HomePage {
             });
             toast.present();
             console.log(err);
-        });
+        });*/
+	this.items.push({name: 'test', bought: true});
   }
   
   ionViewDidLeave() {
