@@ -73,21 +73,21 @@ export class CardPage {
   }
   
   drawCard(): void {
-  if(this.cardNumber.length > 0) {
-    bwipjs('leBarcode', {
-                bcid:        'ean13',       // Barcode type
-                text:        this.cardNumber, // Text to encode
-                scale:       3,               // 3x scaling factor
-                height:      20,              // Bar height, in millimeters
-                includetext: false,            // Show human-readable text
-                textxalign:  'center',        // Always good to set this
-                }, function (err, cvs) {
-                    if (err) {
-                        // `err` may be a string or Error object
-                        console.log(err);
-                    }
-            });
-	}
+    if(this.cardNumber.length > 0) {
+      bwipjs('leBarcode', {
+                  bcid:        'ean13',       // Barcode type
+                  text:        this.cardNumber, // Text to encode
+                  scale:       2,               // 3x scaling factor
+                  height:      20,              // Bar height, in millimeters
+                  includetext: false,            // Show human-readable text
+                  textxalign:  'center',        // Always good to set this
+                  }, function (err, cvs) {
+                      if (err) {
+                          // `err` may be a string or Error object
+                          console.log(err);
+                      }
+              });
+	  }
   }
 
   ionViewWillLeave() {
