@@ -28,26 +28,25 @@ export class CardPage {
     private toastCtrl: ToastController
     ) {
   }
-
+  
   ionViewDidLoad() {
     // Try to get stored number in preferences (along with names)
-    
     this.appPreferences.getItem('cardNumber')
-        .then(res => { this.cardNumber = res.cardNumber; return;}, 
+        .then(res => { this.cardNumber = res.cardNumber; }, 
 		err => {
 		  let toast = this.toastCtrl.create({
 		    message: err,
             duration: 1500
           });
           toast.present();
-		})
-        .then( () => {
-            // If success, display the card and set brightness to max
-            if(this.cardNumber != '') {
-              this.drawCard();
-            }
-        });
+		});
     // console.log('ionViewDidLoad CardPage');
+  }
+
+  ionViewDidEnter() {
+    this.drawCard();
+    this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
+            .then(() => this.brightness.setBrightness(1) );
   }
   
   launchScan(): void {
@@ -55,7 +54,13 @@ export class CardPage {
       console.log('Barcode data', barcodeData);
       this.cardNumber = barcodeData.text;
       this.appPreferences.setItem('cardNumber',{cardNumber: barcodeData.text})
-                         .then();
+                         .then(() => {}, err => {
+						   let toast = this.toastCtrl.create({
+		                     message: err,
+                             duration: 1500
+                           });
+                           toast.present();
+						 });
 	  this.drawCard();
     }).catch(err => {
       console.log('Error', err);
@@ -68,10 +73,11 @@ export class CardPage {
   }
   
   drawCard(): void {
+  if(this.cardNumber.length > 0) {
     bwipjs('leBarcode', {
                 bcid:        'ean13',       // Barcode type
                 text:        this.cardNumber, // Text to encode
-                scale:       2,               // 3x scaling factor
+                scale:       3,               // 3x scaling factor
                 height:      20,              // Bar height, in millimeters
                 includetext: false,            // Show human-readable text
                 textxalign:  'center',        // Always good to set this
@@ -81,11 +87,10 @@ export class CardPage {
                         console.log(err);
                     }
             });
-    this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
-            .then(() => this.brightness.setBrightness(1) );
+	}
   }
 
-  ionViewDidLeave() {
+  ionViewWillLeave() {
     // Restore brightness to previous value
     if(this.brightnessValue) {
       this.brightness.setBrightness(this.brightnessValue);
