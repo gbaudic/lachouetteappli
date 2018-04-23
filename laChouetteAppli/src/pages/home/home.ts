@@ -80,6 +80,19 @@ export class HomePage {
   markAsDone(item: ShoppingItem): void {
     item.bought = true;
   }
+  
+  /** Helper function to sort list: bought items go last */
+  compareItems(a: ShoppingItem, b: ShoppingItem):  number {
+    if(a.bought === b.bought) {
+      return 0;
+    } else {
+      if(a.bought) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+  }
 
 }
 

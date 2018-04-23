@@ -7,7 +7,7 @@
 <ion-content>
   
   <ion-list *ngIf="items.length > 0">
-    <ion-item *ngFor="let it of items">
+    <ion-item *ngFor="let it of items.sort(compareItems)">
       <ion-checkbox name="chk_{{it.name}}" [(ngModel)]="it.bought"></ion-checkbox>
 	  <ion-label [ngClass]="{'bought-item': it.bought }">{{it.name}}</ion-label>
 	  <!--any idea why we need a ion-label in this case? it is nowhere in the doc!-->
