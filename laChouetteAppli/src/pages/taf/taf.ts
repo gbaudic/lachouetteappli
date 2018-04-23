@@ -29,8 +29,8 @@ export class TafPage {
 
 export class TafClass {
   occupation: string;
-  date: Date;
-  hours: string; // TODO: improve this
+  startDate: Date;
+  endDate: Date;
   firstName: string;
   lastName: string;
   email: string;

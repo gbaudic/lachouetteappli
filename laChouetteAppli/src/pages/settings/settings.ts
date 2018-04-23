@@ -27,26 +27,27 @@ export class SettingsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
-	this.appPreferences.getItem('firstName').then((res) => { this.firstName = res.firstName; });
-	this.appPreferences.getItem('lastName').then((res) => { this.lastName = res.lastName; });
-	this.appPreferences.getItem('email').then((res) => { this.email = res.email; });
+	this.appPreferences.getItem('firstName').then(res => { this.firstName = res.firstName; }, err => {});
+	this.appPreferences.getItem('lastName').then(res => { this.lastName = res.lastName; }, err => {});
+	this.appPreferences.getItem('email').then(res => { this.email = res.email; }, err => {});
   }
   
-  ionViewDidLeave() {
+  ionViewWillLeave() {
     // Save changes
 	if(this.firstName) {
-	  this.appPreferences.setItem('firstName',{firstName: this.firstName}).then();
+	  this.appPreferences.setItem('firstName',{firstName: this.firstName}).then(() => {}, err => {});
 	}
 	if(this.lastName) {
-	  this.appPreferences.setItem('lastName',{lastName: this.lastName}).then();
+	  this.appPreferences.setItem('lastName',{lastName: this.lastName}).then(() => {}, err => {});
 	}
 	if(this.email) {
-	  this.appPreferences.setItem('email',{email: this.email}).then();
+	  this.appPreferences.setItem('email',{email: this.email}).then(() => {}, err => {});
 	}
   }
   
   addItem(): void {
-    // TODO
+    // TODO: open a custom view to enter details, validate input
+    
   }
 
 }

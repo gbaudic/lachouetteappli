@@ -1,30 +1,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Mon pense-b&ecirc;te TAF</ion-title>
+    <ion-title>Mon pense-b&ecirc;te T&Agrave;F</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <ion-item>
-    <ion-label floating>Prénom</ion-label>
-    <ion-input name="first" type="text" [(ngModel)]="firstName"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label floating>Nom</ion-label>
-    <ion-input name="last" type="text" [(ngModel)]="lastName"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label floating>E-mail</ion-label>
-    <ion-input name="email" type="email" [(ngModel)]="email"></ion-input>
-  </ion-item>
-  
+<ion-content> 
   <ion-list>
-  
+    <ion-item *ngFor="let taf of tafs">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-10>
+              <h2>{{taf.occupation}}</h2>
+              <p>le {{startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>de {{startDate | date:'HH:mm':'':'fr'}} à {{endDate | date:'HH:mm':'':'fr'}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </ion-item>
   </ion-list>
   
   <ion-fab right bottom>
