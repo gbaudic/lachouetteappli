@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Calendar } from '@ionic-native/calendar';
 import { TafClass } from '../taf/taf';
 
 /**
@@ -22,7 +23,8 @@ export class SettingsPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private appPreferences: NativeStorage) {
+    private appPreferences: NativeStorage,
+	private calendar: Calendar) {
   }
 
   ionViewDidLoad() {

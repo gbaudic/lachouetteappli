@@ -20,6 +20,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
 import { Dialogs } from '@ionic-native/dialogs';
+import { Calendar } from '@ionic-native/calendar';
 import { TafProvider } from '../providers/taf/taf';
 
 @NgModule({
@@ -59,7 +60,8 @@ import { TafProvider } from '../providers/taf/taf';
 	Dialogs,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 	{provide: LOCALE_ID, useValue:'fr'},
-    TafProvider
+    TafProvider,
+	Calendar
   ]
 })
 export class AppModule {}

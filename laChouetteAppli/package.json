@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "5.2.9",
     "@ionic-native/barcode-scanner": "^4.6.0",
     "@ionic-native/brightness": "^4.6.0",
+    "@ionic-native/calendar": "^4.7.0",
     "@ionic-native/core": "4.5.3",
     "@ionic-native/dialogs": "^4.6.0",
     "@ionic-native/native-storage": "^4.7.0",
@@ -33,6 +34,7 @@
     "bwip-angular2": "^1.0.5",
     "cordova-android": "7.0.0",
     "cordova-plugin-brightness": "0.2.0",
+    "cordova-plugin-calendar": "^5.0.0",
     "cordova-plugin-device": "2.0.1",
     "cordova-plugin-dialogs": "2.0.1",
     "cordova-plugin-ionic-keyboard": "2.0.5",
@@ -64,7 +66,8 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-dialogs": {},
-      "cordova-plugin-nativestorage": {}
+      "cordova-plugin-nativestorage": {},
+      "cordova-plugin-calendar": {}
     }
   }
 }
