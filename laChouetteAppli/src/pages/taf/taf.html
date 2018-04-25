@@ -7,14 +7,23 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>TAF</ion-title>
+    <ion-title>T&Agrave;F</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-<ion-list>
-
-</ion-list>
+<ion-content>
+    <ion-item>
+    <!--TODO: ngModels-->
+        <ion-label>Poste</ion-label>
+        <ion-select okText="OK" cancelText="Annuler">
+            <ion-option *ngFor="let job of occupations" [value]="job">{{job}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Date de début</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" min="2018"></ion-datetime>
+    </ion-item>
+    <!--TODO: end date? or we suppose that a TAF is always 3 hours long?-->
 </ion-content>

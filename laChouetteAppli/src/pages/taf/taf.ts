@@ -14,7 +14,8 @@ import { TafProvider } from '../../providers/taf/taf';
   templateUrl: 'taf.html',
 })
 export class TafPage {
-  nextTAFs: TafClass[] = [];
+  nextTAF: TafClass;
+  public occupations: string[] = ['Chouettos', 'Caisse 1', 'Caisse 2', 'Support caisse', 'GH en formation', 'Grand Hibou'];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private loadingCtrl: LoadingController, private tafService: TafProvider,
@@ -24,6 +25,14 @@ export class TafPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad TafPage');
   }
+  
+  ionViewWillLeave() {
+  
+  }
+  
+  getTAF(): TafClass {
+    return this.nextTAF;
+  }
 
 }
 
@@ -31,8 +40,4 @@ export class TafClass {
   occupation: string;
   startDate: Date;
   endDate: Date;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
 }
