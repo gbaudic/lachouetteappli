@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, Platform } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
 import { NativeStorage } from '@ionic-native/native-storage';
 
@@ -13,11 +13,12 @@ export class HomePage {
   constructor(public navCtrl: NavController,
       private toastCtrl: ToastController,
       public dialogs: Dialogs,
-      private nativeStorage: NativeStorage) {
-
+      private nativeStorage: NativeStorage,
+      private platform: Platform) {
+    platform.ready().then(() => { this.loadData(); });
   }
   
-  ionViewWillEnter() {
+  loadData() {
     // Load saved data if exists
     this.nativeStorage.getItem('shoppingList').then(
 	  data => { this.items = data.items; },

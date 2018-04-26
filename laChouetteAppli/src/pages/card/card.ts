@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
@@ -25,11 +25,18 @@ export class CardPage {
     private appPreferences: NativeStorage,
     private barcodeScanner: BarcodeScanner,
     private brightness: Brightness,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private platform: Platform
     ) {
+    platform.ready().then(() => { 
+      this.loadData(); 
+      this.drawCard();
+      this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
+            .then(() => this.brightness.setBrightness(1) );
+      });
   }
   
-  ionViewDidLoad() {
+  loadData() {
     // Try to get stored number in preferences (along with names)
     this.appPreferences.getItem('cardNumber')
         .then(res => { this.cardNumber = res.cardNumber; }, 
@@ -43,11 +50,11 @@ export class CardPage {
     // console.log('ionViewDidLoad CardPage');
   }
 
-  ionViewDidEnter() {
+  /*ionViewDidEnter() {
     this.drawCard();
     this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
             .then(() => this.brightness.setBrightness(1) );
-  }
+  }*/
   
   launchScan(): void {
     this.barcodeScanner.scan({formats: 'EAN_13'}).then(barcodeData => {
