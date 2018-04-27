@@ -9,15 +9,17 @@
 
 <ion-content> 
   <ion-list>
-    <ion-item *ngFor="let taf of tafs">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-10>
-              <h2>{{taf.occupation}}</h2>
-              <p>le {{startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>de {{startDate | date:'HH:mm':'':'fr'}} à {{endDate | date:'HH:mm':'':'fr'}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <ion-item *ngFor="let taf of tafs.filter(tafFilter)">
+        <h2>{{taf.occupation}}</h2>
+        <p>le {{startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>de {{startDate | date:'HH:mm':'':'fr'}} à {{endDate | date:'HH:mm':'':'fr'}}</p>
+        <ion-buttons item-end>
+	      <button ion-button icon-only (click)="editItem(taf)" clear>
+		    <ion-icon name="create"></ion-icon>
+		  </button>
+          <button ion-button icon-only (click)="deleteItem(taf)" clear>
+            <ion-icon name="trash"></ion-icon>
+          </button>
+	  </ion-buttons>
     </ion-item>
   </ion-list>
   

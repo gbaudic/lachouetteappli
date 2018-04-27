@@ -27,7 +27,7 @@ export class SettingsPage {
     private appPreferences: NativeStorage,
 	private calendar: Calendar) {
 	platform.ready().then(() => { 
-	  // TODO: load tafs from storage and filter
+	  this.appPreferences.getItem('tafList').then(res => { this.tafs = res.tafs; }, err => {});
 	});
   }
 
@@ -48,9 +48,15 @@ export class SettingsPage {
 	if(this.email) {
 	  this.appPreferences.setItem('email',{email: this.email}).then(() => {}, err => {});
 	}
+	this.appPreferences.setItem('tafList',{tafs: this.tafs}).then(() => {}, err => {});
   }
   
-  // TODO: filter to hide TAFs located in the past (before today, excluded)
+  /** Filter to hide TAFs located in the past (before today, excluded) */
+  tafFilter(taf: TafClass) : boolean {
+    let today = Date.now();
+    today.setHours(0, 0, 0, 0);
+    return taf.startDate.valueOf() > today.valueOf();
+  }
   
   addItem(): void {
     // TODO: open a custom view to enter details, validate input
@@ -58,11 +64,16 @@ export class SettingsPage {
   }
   
   editItem(taf: TafClass): void {
-  
+    // remove item, feed it to the TAF page
+    // then take the returned object and put it back in the array
+    // if user cancels action, we need a way to get the article 
   }
   
   deleteItem(taf: TafClass): void {
-  
+    let index = this.tafs.indexOf(taf);
+    if(index > -1) {
+      this.tafs.splice(index, 1);
+    }
   }
 
 }
