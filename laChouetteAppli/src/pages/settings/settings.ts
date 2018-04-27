@@ -53,7 +53,7 @@ export class SettingsPage {
   
   /** Filter to hide TAFs located in the past (before today, excluded) */
   tafFilter(taf: TafClass) : boolean {
-    let today = Date.now();
+    let today = new Date();
     today.setHours(0, 0, 0, 0);
     return taf.startDate.valueOf() > today.valueOf();
   }

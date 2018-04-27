@@ -31,8 +31,6 @@ export class CardPage {
     platform.ready().then(() => { 
       this.loadData(); 
       this.drawCard();
-      this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
-            .then(() => this.brightness.setBrightness(1) );
       });
   }
   
@@ -50,11 +48,11 @@ export class CardPage {
     // console.log('ionViewDidLoad CardPage');
   }
 
-  /*ionViewDidEnter() {
+  ionViewDidEnter() {
     this.drawCard();
     this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
             .then(() => this.brightness.setBrightness(1) );
-  }*/
+  }
   
   launchScan(): void {
     this.barcodeScanner.scan({formats: 'EAN_13'}).then(barcodeData => {
@@ -85,7 +83,7 @@ export class CardPage {
                   bcid:        'ean13',       // Barcode type
                   text:        this.cardNumber, // Text to encode
                   scale:       2,               // 3x scaling factor
-                  height:      20,              // Bar height, in millimeters
+                  height:      15,              // Bar height, in millimeters
                   includetext: false,            // Show human-readable text
                   textxalign:  'center',        // Always good to set this
                   }, function (err, cvs) {
