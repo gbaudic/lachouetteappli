@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Calendar } from '@ionic-native/calendar';
 import { TafClass } from '../taf/taf';
@@ -23,12 +23,15 @@ export class SettingsPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public platform: Platform,
     private appPreferences: NativeStorage,
 	private calendar: Calendar) {
+	platform.ready().then(() => { 
+	  // TODO: load tafs from storage and filter
+	});
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
 	this.appPreferences.getItem('firstName').then(res => { this.firstName = res.firstName; }, err => {});
 	this.appPreferences.getItem('lastName').then(res => { this.lastName = res.lastName; }, err => {});
 	this.appPreferences.getItem('email').then(res => { this.email = res.email; }, err => {});
@@ -47,9 +50,19 @@ export class SettingsPage {
 	}
   }
   
+  // TODO: filter to hide TAFs located in the past (before today, excluded)
+  
   addItem(): void {
     // TODO: open a custom view to enter details, validate input
     
+  }
+  
+  editItem(taf: TafClass): void {
+  
+  }
+  
+  deleteItem(taf: TafClass): void {
+  
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { TafProvider } from '../../providers/taf/taf';
+import { Dialogs } from '@ionic-native/dialogs';
 
 /**
  * Generated class for the TafPage page.
@@ -16,9 +17,13 @@ import { TafProvider } from '../../providers/taf/taf';
 export class TafPage {
   nextTAF: TafClass;
   public occupations: string[] = ['Chouettos', 'Caisse 1', 'Caisse 2', 'Support caisse', 'GH en formation', 'Grand Hibou'];
+  nextOccupation: string;
+  nextStartDate: Date;
+  nextEndDate: Date;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private loadingCtrl: LoadingController, private tafService: TafProvider,
+              public dialogs: Dialogs,
               private toastCtrl: ToastController) {
   }
 
@@ -26,12 +31,23 @@ export class TafPage {
     console.log('ionViewDidLoad TafPage');
   }
   
-  ionViewWillLeave() {
-  
+  /** Perform a basic check on user inputs */
+  validate() : boolean {
+    // TODO
+    if(this.nextOccupation === undefined || this.nextOccupation.length === 0) {
+      return false;
+    }
+    return true;
   }
   
-  getTAF(): TafClass {
-    return this.nextTAF;
+  send() {
+    // go back to TAF list
+    if(!this.validate()) {
+      // show dialog
+      return;
+    } else {
+    
+    }
   }
 
 }

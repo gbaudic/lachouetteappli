@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title>T&Agrave;F</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="send()">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -15,15 +20,17 @@
 
 <ion-content>
     <ion-item>
-    <!--TODO: ngModels-->
         <ion-label>Poste</ion-label>
-        <ion-select okText="OK" cancelText="Annuler">
+        <ion-select okText="OK" cancelText="Annuler" [(ngModel)]="nextOccupation">
             <ion-option *ngFor="let job of occupations" [value]="job">{{job}}</ion-option>
         </ion-select>
     </ion-item>
     <ion-item>
         <ion-label>Date de début</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" min="2018"></ion-datetime>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" min="2018" [(ngModel)]="nextStartDate"></ion-datetime>
     </ion-item>
-    <!--TODO: end date? or we suppose that a TAF is always 3 hours long?-->
+    <ion-item>
+        <ion-label>Date de fin</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" min="2018" [(ngModel)]="nextEndDate"></ion-datetime>
+    </ion-item>
 </ion-content>
