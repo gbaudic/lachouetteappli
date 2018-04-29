@@ -3,7 +3,7 @@ import { NavController, NavParams, ToastController, Platform } from 'ionic-angul
 import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
-import  bwipjs  from 'bwip-angular2';
+import bwipjs from 'bwip-angular2';
 
 /**
  * Generated class for the CardPage page.
@@ -18,7 +18,7 @@ import  bwipjs  from 'bwip-angular2';
 })
 export class CardPage {
   brightnessValue: number;
-  cardNumber: string = ''; 
+  cardNumber: string = '';
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -27,46 +27,46 @@ export class CardPage {
     private brightness: Brightness,
     private toastCtrl: ToastController,
     private platform: Platform
-    ) {
-    platform.ready().then(() => { 
-      this.loadData(); 
+  ) {
+    platform.ready().then(() => {
+      this.loadData();
       this.drawCard();
-      });
+    });
   }
-  
+
   loadData() {
     // Try to get stored number in preferences (along with names)
     this.appPreferences.getItem('cardNumber')
-        .then(res => { this.cardNumber = res.cardNumber; }, 
-		err => {
-		  let toast = this.toastCtrl.create({
-		    message: err,
-            duration: 1500
-          });
-          toast.present();
-		});
+      .then(res => { this.cardNumber = res.cardNumber; },
+      err => {
+        let toast = this.toastCtrl.create({
+          message: err,
+          duration: 1500
+        });
+        toast.present();
+      });
     // console.log('ionViewDidLoad CardPage');
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.drawCard();
     this.brightness.getBrightness().then((res) => { this.brightnessValue = res; })
-            .then(() => this.brightness.setBrightness(1) );
+      .then(() => this.brightness.setBrightness(1));
   }
-  
+
   launchScan(): void {
-    this.barcodeScanner.scan({formats: 'EAN_13'}).then(barcodeData => {
+    this.barcodeScanner.scan({ formats: 'EAN_13' }).then(barcodeData => {
       console.log('Barcode data', barcodeData);
       this.cardNumber = barcodeData.text;
-      this.appPreferences.setItem('cardNumber',{cardNumber: barcodeData.text})
-                         .then(() => {}, err => {
-						   let toast = this.toastCtrl.create({
-		                     message: err,
-                             duration: 1500
-                           });
-                           toast.present();
-						 });
-	  this.drawCard();
+      this.appPreferences.setItem('cardNumber', { cardNumber: barcodeData.text })
+        .then(() => { }, err => {
+          let toast = this.toastCtrl.create({
+            message: err,
+            duration: 1500
+          });
+          toast.present();
+        });
+      this.drawCard();
     }).catch(err => {
       console.log('Error', err);
       let toast = this.toastCtrl.create({
@@ -76,28 +76,28 @@ export class CardPage {
       toast.present();
     });
   }
-  
+
   drawCard(): void {
-    if(this.cardNumber.length > 0) {
+    if (this.cardNumber.length > 0) {
       bwipjs('leBarcode', {
-                  bcid:        'ean13',       // Barcode type
-                  text:        this.cardNumber, // Text to encode
-                  scale:       2,               // 3x scaling factor
-                  height:      15,              // Bar height, in millimeters
-                  includetext: false,            // Show human-readable text
-                  textxalign:  'center',        // Always good to set this
-                  }, function (err, cvs) {
-                      if (err) {
-                          // `err` may be a string or Error object
-                          console.log(err);
-                      }
-              });
-	  }
+        bcid: 'ean13',       // Barcode type
+        text: this.cardNumber, // Text to encode
+        scale: 2,               // 3x scaling factor
+        height: 15,              // Bar height, in millimeters
+        includetext: false,            // Show human-readable text
+        textxalign: 'center',        // Always good to set this
+      }, function (err, cvs) {
+        if (err) {
+          // `err` may be a string or Error object
+          console.log(err);
+        }
+      });
+    }
   }
 
   ionViewWillLeave() {
     // Restore brightness to previous value
-    if(this.brightnessValue) {
+    if (this.brightnessValue) {
       this.brightness.setBrightness(this.brightnessValue);
     }
   }

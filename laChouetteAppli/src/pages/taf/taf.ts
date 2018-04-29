@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController, ViewController } from 'ionic-angular';
 import { TafProvider } from '../../providers/taf/taf';
 import { Dialogs } from '@ionic-native/dialogs';
 
@@ -22,31 +22,47 @@ export class TafPage {
   nextEndDate: Date;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              private loadingCtrl: LoadingController, private tafService: TafProvider,
-              public dialogs: Dialogs,
-              private toastCtrl: ToastController) {
+    public viewCtrl: ViewController,
+    public dialogs: Dialogs,
+    private toastCtrl: ToastController) {
+    if (navParams.get('tafToEdit')) {
+      let tafToEdit = navParams.get('tafToEdit');
+      this.nextOccupation = tafToEdit.occupation;
+      this.nextStartDate = tafToEdit.startDate;
+      this.nextEndDate = tafToEdit.endDate;
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TafPage');
   }
-  
+
   /** Perform a basic check on user inputs */
-  validate() : boolean {
-    // TODO
-    if(this.nextOccupation === undefined || this.nextOccupation.length === 0) {
+  validate(): boolean {
+    if (this.nextOccupation === undefined || this.nextOccupation.length === 0) {
+      return false;
+    }
+    let today = new Date();
+    if (this.nextStartDate === undefined || this.nextStartDate.valueOf() < today.valueOf()) {
+      return false;
+    }
+    if (this.nextEndDate === undefined || this.nextEndDate.valueOf() < today.valueOf()) {
       return false;
     }
     return true;
   }
-  
+
   send() {
     // go back to TAF list
-    if(!this.validate()) {
+    if (!this.validate()) {
       // show dialog
-      return;
+      this.dialogs.alert('Données incorrectes !', 'Erreur')
+        .then(() => { });
     } else {
-    
+      let newTaf = new TafClass();
+      newTaf.occupation = this.nextOccupation;
+      newTaf.endDate = this.nextEndDate;
+      newTaf.startDate = this.nextStartDate;
+      this.viewCtrl.dismiss(newTaf);
     }
   }
 
