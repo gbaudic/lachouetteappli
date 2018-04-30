@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, ToastController, ViewController } from 'ionic-angular';
-import { TafProvider } from '../../providers/taf/taf';
 import { Dialogs } from '@ionic-native/dialogs';
 
 /**
@@ -18,18 +17,22 @@ export class TafPage {
   nextTAF: TafClass;
   public occupations: string[] = ['Chouettos', 'Caisse 1', 'Caisse 2', 'Support caisse', 'GH en formation', 'Grand Hibou'];
   nextOccupation: string;
-  nextStartDate: Date;
-  nextEndDate: Date;
+  nextStartDate: string;
+  nextEndDate: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
     public dialogs: Dialogs,
     private toastCtrl: ToastController) {
     if (navParams.get('tafToEdit')) {
-      let tafToEdit = navParams.get('tafToEdit');
+      let tafToEdit = navParams.get('tafToEdit') as TafClass;
       this.nextOccupation = tafToEdit.occupation;
-      this.nextStartDate = tafToEdit.startDate;
-      this.nextEndDate = tafToEdit.endDate;
+      this.nextStartDate = tafToEdit.startDate.toISOString();
+      this.nextEndDate = tafToEdit.endDate.toISOString();
+    } else {
+      let today = new Date();
+      this.nextEndDate = today.toISOString().slice(0,-8);
+      this.nextStartDate = today.toISOString().slice(0,-8);
     }
   }
 
@@ -42,10 +45,12 @@ export class TafPage {
       return false;
     }
     let today = new Date();
-    if (this.nextStartDate === undefined || this.nextStartDate.valueOf() < today.valueOf()) {
+    let start = new Date(this.nextStartDate);
+    let theEnd = new Date(this.nextEndDate);
+    if (this.nextStartDate === undefined || start.valueOf() < today.valueOf()) {
       return false;
     }
-    if (this.nextEndDate === undefined || this.nextEndDate.valueOf() < today.valueOf()) {
+    if (this.nextEndDate === undefined || theEnd.valueOf() < start.valueOf()) {
       return false;
     }
     return true;
@@ -56,12 +61,13 @@ export class TafPage {
     if (!this.validate()) {
       // show dialog
       this.dialogs.alert('Données incorrectes !', 'Erreur')
-        .then(() => { });
+        .then(() => { })
+		.catch(e => { });
     } else {
       let newTaf = new TafClass();
       newTaf.occupation = this.nextOccupation;
-      newTaf.endDate = this.nextEndDate;
-      newTaf.startDate = this.nextStartDate;
+      newTaf.endDate = new Date(this.nextEndDate);
+      newTaf.startDate = new Date(this.nextStartDate);
       this.viewCtrl.dismiss(newTaf);
     }
   }

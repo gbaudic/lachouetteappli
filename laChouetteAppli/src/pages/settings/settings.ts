@@ -50,7 +50,12 @@ export class SettingsPage {
   addItem(): void {
     // Open a custom view to enter details
     let addModal = this.modalCtrl.create(TafPage);
-    addModal.onDidDismiss(data => { this.tafs.push(data as TafClass); });
+    addModal.onDidDismiss(data => {
+      if (data) {
+        console.log(data);
+        this.tafs.push(data as TafClass);
+      }
+    });
     addModal.present();
   }
 
@@ -59,8 +64,13 @@ export class SettingsPage {
     // then take the returned object and put it back in the array
     // if user cancels action, we need a way to get the article
     let index = this.tafs.indexOf(taf);
-    let editModal = this.modalCtrl.create(TafPage, taf);
-    editModal.onDidDismiss(data => { this.tafs[index] = data as TafClass; });
+    let editModal = this.modalCtrl.create(TafPage, { tafToEdit: taf });
+    editModal.onDidDismiss(data => {
+      if (data) {
+        console.log(data);
+        this.tafs[index] = data as TafClass;
+      }
+    });
     editModal.present();
   }
 
