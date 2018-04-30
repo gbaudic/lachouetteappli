@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ToastController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
 
 /**
@@ -22,15 +22,21 @@ export class TafPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
-    public dialogs: Dialogs,
-    private toastCtrl: ToastController) {
+    public dialogs: Dialogs) {
     if (navParams.get('tafToEdit')) {
       let tafToEdit = navParams.get('tafToEdit') as TafClass;
       this.nextOccupation = tafToEdit.occupation;
-      this.nextStartDate = tafToEdit.startDate.toISOString();
-      this.nextEndDate = tafToEdit.endDate.toISOString();
+      let tempDate = new Date(tafToEdit.startDate);
+      tempDate.setHours(tempDate.getHours() - tempDate.getTimezoneOffset() / 60);
+      this.nextStartDate = tempDate.toISOString();
+      tempDate = new Date(tafToEdit.endDate);
+      tempDate.setHours(tempDate.getHours() - tempDate.getTimezoneOffset() / 60);
+      this.nextEndDate = tempDate.toISOString();
     } else {
       let today = new Date();
+      // Awful trick to get around timezone issue because Ionic datepicker only understands
+      // the ISO text representation, which includes timezone
+      today.setHours(today.getHours() - today.getTimezoneOffset() / 60);
       this.nextEndDate = today.toISOString().slice(0,-8);
       this.nextStartDate = today.toISOString().slice(0,-8);
     }
@@ -67,7 +73,10 @@ export class TafPage {
       let newTaf = new TafClass();
       newTaf.occupation = this.nextOccupation;
       newTaf.endDate = new Date(this.nextEndDate);
+      // Get date back to its actual UTC value
+      newTaf.endDate.setHours(newTaf.endDate.getHours() + newTaf.endDate.getTimezoneOffset() / 60);
       newTaf.startDate = new Date(this.nextStartDate);
+      newTaf.startDate.setHours(newTaf.startDate.getHours() + newTaf.startDate.getTimezoneOffset() / 60);
       this.viewCtrl.dismiss(newTaf);
     }
   }
