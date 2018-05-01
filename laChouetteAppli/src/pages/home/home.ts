@@ -24,7 +24,7 @@ export class HomePage {
       data => { this.items = data.items; },
       err => {
         let toast = this.toastCtrl.create({
-          message: 'Aucune liste trouvée: ' + err,
+          message: 'Aucune liste trouvée : ' + err,
           duration: 1500
         });
         toast.present();

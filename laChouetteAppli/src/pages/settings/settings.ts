@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, ModalController } from 'ionic-angular';
+import { NavController, NavParams, Platform, ModalController, ToastController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Calendar } from '@ionic-native/calendar';
 import { TafPage, TafClass } from '../taf/taf';
@@ -22,13 +22,22 @@ export class SettingsPage {
   tafs: TafClass[] = [];
 
   constructor(public navCtrl: NavController,
+    private toastCtrl: ToastController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public platform: Platform,
     private appPreferences: NativeStorage,
     private calendar: Calendar) {
     platform.ready().then(() => {
-      this.appPreferences.getItem('tafList').then(res => { this.tafs = res.tafs; }, err => { });
+      this.appPreferences.getItem('tafList').then(
+        res => { this.tafs = res.tafs; },
+        err => {
+          let toast = this.toastCtrl.create({
+            message: 'Aucun TAF trouvé : ' + err,
+            duration: 1500
+          });
+          toast.present();
+        });
     });
   }
 
@@ -37,7 +46,15 @@ export class SettingsPage {
 
   ionViewWillLeave() {
     // Save changes
-    this.appPreferences.setItem('tafList', { tafs: this.tafs }).then(() => { }, err => { });
+    this.appPreferences.setItem('tafList', { tafs: this.tafs })
+      .then(() => { },
+      err => {
+        let toast = this.toastCtrl.create({
+          message: 'Erreur TAF : ' + err,
+          duration: 1500
+        });
+        toast.present();
+      });
   }
 
   /** Filter to hide TAFs located in the past (before today, excluded) */
@@ -60,9 +77,6 @@ export class SettingsPage {
   }
 
   editItem(taf: TafClass): void {
-    // remove item, feed it to the TAF page
-    // then take the returned object and put it back in the array
-    // if user cancels action, we need a way to get the article
     let index = this.tafs.indexOf(taf);
     let editModal = this.modalCtrl.create(TafPage, { tafToEdit: taf });
     editModal.onDidDismiss(data => {
@@ -81,4 +95,10 @@ export class SettingsPage {
     }
   }
 
+}
+
+export class SavedTaf {
+  occupation: string;
+  startDate: string;
+  endDate: string;
 }
