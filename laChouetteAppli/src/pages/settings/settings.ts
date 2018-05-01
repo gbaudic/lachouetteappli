@@ -30,7 +30,7 @@ export class SettingsPage {
     private calendar: Calendar) {
     platform.ready().then(() => {
       this.appPreferences.getItem('tafList').then(
-        res => { this.tafs = res.tafs; },
+        res => { this.tafs = this.fromSavedTafs(res.tafs); },
         err => {
           let toast = this.toastCtrl.create({
             message: 'Aucun TAF trouvé : ' + err,
@@ -46,7 +46,7 @@ export class SettingsPage {
 
   ionViewWillLeave() {
     // Save changes
-    this.appPreferences.setItem('tafList', { tafs: this.tafs })
+    this.appPreferences.setItem('tafList', { tafs: this.toSavedTafs(this.tafs) })
       .then(() => { },
       err => {
         let toast = this.toastCtrl.create({
@@ -95,6 +95,35 @@ export class SettingsPage {
     }
   }
 
+  // Attempt to ensure correct serialization of objects for persistence
+
+  toSavedTafs(tafs: TafClass[]): SavedTaf[] {
+    let result: SavedTaf[] = [];
+
+    for (let t of tafs) {
+      let st = new SavedTaf();
+      st.occupation = t.occupation;
+      st.startDate = t.startDate.toISOString();
+      st.endDate = t.endDate.toISOString();
+      result.push(st);
+    }
+
+    return result;
+  }
+
+  fromSavedTafs(saved: SavedTaf[]): TafClass[] {
+    let result: TafClass[] = [];
+
+    for (let st of saved) {
+      let t = new TafClass();
+      t.occupation = st.occupation;
+      t.startDate = new Date(st.startDate);
+      t.endDate = new Date(st.endDate);
+      result.push(t);
+    }
+
+    return result;
+  } 
 }
 
 export class SavedTaf {
