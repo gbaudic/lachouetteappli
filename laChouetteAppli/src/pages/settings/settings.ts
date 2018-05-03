@@ -63,6 +63,19 @@ export class SettingsPage {
     today.setHours(0, 0, 0, 0);
     return taf.startDate.valueOf() > today.valueOf();
   }
+  
+  /** Ensure TAFs are ordered by date instead of order of entry */
+  sortTaf(a: TafClass, b: TafClass): number {
+	if (a.startDate.valueOf() < b.startDate.valueOf()) {
+	  return -1;
+	} else {
+	  if (a.startDate.valueOf() === b.startDate.valueOf()) {
+		return 0;
+	  } else {
+		return 1;
+	  }
+	}
+  }
 
   addItem(): void {
     // Open a custom view to enter details
