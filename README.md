@@ -9,9 +9,10 @@ www.lachouettecoop.fr
 - calcul de caisse espèces
 - carte de membre dématérialisée
 - liste de courses
+- liste des TAFs
 
 A venir selon faisabilité technique : 
-- liste des TAFs
+
 - liens vers le journal _le bec et la plume_
 
 ## Prérequis
@@ -28,7 +29,8 @@ A venir selon faisabilité technique :
 TODO: installer les plugins natifs cordova dont la liste se trouve dans le fichier, vérifier qu'un dossier plugins a été créé et que le fichier `android.json` contient bien la liste dans la partie `installed_plugins`.  
 
 Prévisualisation dans le navigateur : `ionic serve` (les fonctionnalités natives génèrent des erreurs)  
-Compilation en natif : `ionic cordova build android`, avec éventuellement les options `--prod` et `--release`
+Compilation en natif : `ionic cordova build android`, avec éventuellement les options `--prod` et `--release`  
+Attention: en mode release, bien effectuer les étapes complémentaires de signature de l'apk et de zipalign, sinon l'installation échouera systématiquement. 
 
 ## Licence
 
