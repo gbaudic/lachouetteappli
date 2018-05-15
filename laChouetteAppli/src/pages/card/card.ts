@@ -30,14 +30,16 @@ export class CardPage {
   ) {
     platform.ready().then(() => {
       this.loadData();
-      this.drawCard();
     });
   }
 
   loadData() {
     // Try to get stored number in preferences (along with names)
     this.appPreferences.getItem('cardNumber')
-      .then(res => { this.cardNumber = res.cardNumber; },
+      .then(res => { 
+        this.cardNumber = res.cardNumber; 
+        setTimeout(() => { this.drawCard(); }, 0);
+      },
       err => {
         let toast = this.toastCtrl.create({
           message: err,
@@ -66,7 +68,7 @@ export class CardPage {
           });
           toast.present();
         });
-      this.drawCard();
+      setTimeout(() => { this.drawCard(); }, 0);
     }).catch(err => {
       console.log('Error', err);
       let toast = this.toastCtrl.create({
