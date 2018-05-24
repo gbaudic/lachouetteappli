@@ -4,9 +4,23 @@ language: node_js
 node_js:
   - "node"
   - "lts/*"
+jdk:
+  - oraclejdk8
+
+android:
+  components:
+    - build-tools-26.0.2
+    - android-26
 
 before_install:
-  - npm i -g ionic cordova
+  - sudo npm i -g ionic cordova
+
+install:
+  - npm install
+  - ionic cordova platform add android
+  
+script:
+  - ionic cordova build android --prod
 
 cache:
   directories:
