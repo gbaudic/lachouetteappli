@@ -13,10 +13,11 @@ android:
     - android-26
 
 before_install:
-  - sudo npm i -g ionic cordova
+  - npm i -g ionic cordova
 
 install:
   - npm install
+  - ionic cordova platform rm android
   - ionic cordova platform add android
   
 script:

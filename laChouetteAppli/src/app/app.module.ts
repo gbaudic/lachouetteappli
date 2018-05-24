@@ -21,7 +21,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
 import { Dialogs } from '@ionic-native/dialogs';
 import { Calendar } from '@ionic-native/calendar';
-import { TafProvider } from '../providers/taf/taf';
+import { OffProvider } from '../providers/off/off';
 
 @NgModule({
   declarations: [
@@ -60,8 +60,8 @@ import { TafProvider } from '../providers/taf/taf';
 	Dialogs,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 	{provide: LOCALE_ID, useValue:'fr'},
-    TafProvider,
-	Calendar
+	Calendar,
+    OffProvider
   ]
 })
 export class AppModule {}
