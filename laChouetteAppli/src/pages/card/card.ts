@@ -5,13 +5,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
 import bwipjs from 'bwip-angular2';
 
-/**
- * Generated class for the CardPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-card',
   templateUrl: 'card.html',

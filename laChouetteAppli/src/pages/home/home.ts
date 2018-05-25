@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, ToastController, Platform } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { OffProvider } from '../../providers/off/off'; 
 
 @Component({
   selector: 'page-home',
@@ -14,7 +16,9 @@ export class HomePage {
     private toastCtrl: ToastController,
     public dialogs: Dialogs,
     private nativeStorage: NativeStorage,
-    private platform: Platform) {
+    private platform: Platform,
+    private barcodeScanner: BarcodeScanner,
+    private off: OffProvider) {
     platform.ready().then(() => { this.loadData(); });
   }
 
@@ -53,7 +57,7 @@ export class HomePage {
     this.dialogs.prompt('Ajouter item', '', ['OK', 'Annuler'], '').then(
       theResult => {
         if ((theResult.buttonIndex == 1) && (theResult.input1 !== '')) {
-          this.items.push({ name: theResult.input1, bought: false });
+          this.items.push({ name: theResult.input1, bought: false, code: '0' });
         }
       });
   }
@@ -78,6 +82,31 @@ export class HomePage {
     }
   }
 
+  launchScan(): void {
+    this.barcodeScanner.scan({ formats: 'EAN_13' }).then(barcodeData => {
+      console.log('Barcode data', barcodeData);
+      this.off.getOffData(barcodeData.text).then(data => {
+        if (this.off.isProduct(data)) {
+          this.items.push({ name: data.product_name, bought: false, code: barcodeData.text });
+        } else {
+          let toast = this.toastCtrl.create({
+            message: 'Article inconnu !',
+            duration: 1500
+          });
+          toast.present();
+        }
+      });
+      
+    }).catch(err => {
+      console.log('Error', err);
+      let toast = this.toastCtrl.create({
+        message: err,
+        duration: 1500
+      });
+      toast.present();
+    });
+  }
+
   markAsDone(item: ShoppingItem): void {
     item.bought = true;
   }
@@ -99,5 +128,6 @@ export class HomePage {
 
 export class ShoppingItem {
   name: string;
+  code: string;
   bought = false;
 }
