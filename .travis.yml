@@ -1,6 +1,6 @@
 dist: trusty
 sudo: required
-language: node_js
+language: android
 node_js:
   - "node"
   - "lts/*"
@@ -9,6 +9,9 @@ jdk:
 
 android:
   components:
+    - tools
+    - platform-tools
+    - tools
     - build-tools-26.0.2
     - android-26
 
