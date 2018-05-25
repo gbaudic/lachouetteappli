@@ -17,7 +17,7 @@ android:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install nodejs -y
+  - sudo apt-get install nodejs npm -y
   - sudo npm i -g ionic cordova
 
 install:
