@@ -7,7 +7,15 @@
 </ion-header>
 
 
-<ion-content> 
+<ion-content>
+  <ion-segment [(ngModel)]="seeFuture">
+    <ion-segment-button value="true">
+      À venir
+    </ion-segment-button>
+    <ion-segment-button value="false">
+      Passés
+    </ion-segment-button>
+  </ion-segment>
   <ion-list>
     <ion-item *ngFor="let taf of tafs.filter(tafFilter).sort(sortTaf)">
         <h2>{{taf.occupation}}</h2>

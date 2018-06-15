@@ -19,6 +19,7 @@ export class SettingsPage {
   firstName: string;
   lastName: string;
   email: string;
+  seeFuture = true;
   tafs: TafClass[] = [];
 
   constructor(public navCtrl: NavController,
@@ -61,7 +62,7 @@ export class SettingsPage {
   tafFilter(taf: TafClass): boolean {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
-    return taf.startDate.valueOf() > today.valueOf();
+    return this.seeFuture === (taf.startDate.valueOf() > today.valueOf());
   }
   
   /** Ensure TAFs are ordered by date instead of order of entry */

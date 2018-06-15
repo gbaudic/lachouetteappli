@@ -6,7 +6,6 @@ import { MyApp } from './app.component';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr'
 
-import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -27,7 +26,6 @@ import { OffProvider } from '../providers/off/off';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
     ContactPage,
     HomePage,
     TabsPage,
@@ -44,7 +42,6 @@ import { OffProvider } from '../providers/off/off';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
     ContactPage,
     HomePage,
     TabsPage,
