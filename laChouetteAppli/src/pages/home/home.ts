@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, Platform } from 'ionic-angular';
+import { NavController, ToastController, Platform, LoadingController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -14,6 +14,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
     private toastCtrl: ToastController,
+    private loadCtrl: LoadingController,
     public dialogs: Dialogs,
     private nativeStorage: NativeStorage,
     private platform: Platform,
@@ -85,7 +86,13 @@ export class HomePage {
   launchScan(): void {
     this.barcodeScanner.scan({ formats: 'EAN_13' }).then(barcodeData => {
       console.log('Barcode data', barcodeData);
+      let loading = this.loadCtrl.create({
+        dismissOnPageChange: true,
+        content: 'Requête à OpenFoodFacts...'
+      });
+      loading.present();
       this.off.getOffData(barcodeData.text).then(data => {
+        loading.dismiss();
         if (this.off.isProduct(data)) {
           this.items.push({ name: data.product_name, bought: false, code: barcodeData.text });
         } else {
