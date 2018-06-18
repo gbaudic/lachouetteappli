@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the ArticleDetailsPage page.
@@ -8,18 +8,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-article-details',
   templateUrl: 'article-details.html',
 })
 export class ArticleDetailsPage {
+  article: any; // see https://en.wiki.openfoodfacts.org/API/Read/Product
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public viewCtrl: ViewController) {
+    if(navParams.get('article')) {
+      this.article = navParams.get('article');
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ArticleDetailsPage');
   }
 
+  addToShoppingList() {
+    this.viewCtrl.dismiss(article.product_name);
+  }
 }
