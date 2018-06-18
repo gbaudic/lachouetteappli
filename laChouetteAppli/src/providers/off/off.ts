@@ -16,8 +16,8 @@ export class OffProvider {
   
   getOffData(barcode: string): Promise<any> {
     return new Promise(resolve => {
-	  this.http.get(`https://fr.openfoodfacts.org/api/v0/produit/${barcode}.json`);
-	});
+	    this.http.get(`https://fr.openfoodfacts.org/api/v0/produit/${barcode}.json`);
+	  });
   }
   
   /** Helper function to tell when a product does not exist

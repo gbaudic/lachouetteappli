@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, Platform, LoadingController } from 'ionic-angular';
+import { NavController, ToastController, Platform, LoadingController, ModalController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { OffProvider } from '../../providers/off/off'; 
+import { OffProvider } from '../../providers/off/off';
+import { ArticleDetailsPage } from '../article-details/article-details';
 
 @Component({
   selector: 'page-home',
@@ -15,6 +16,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     private toastCtrl: ToastController,
     private loadCtrl: LoadingController,
+    private modalCtrl: ModalController,
     public dialogs: Dialogs,
     private nativeStorage: NativeStorage,
     private platform: Platform,
@@ -91,10 +93,21 @@ export class HomePage {
         content: 'Requête à OpenFoodFacts...'
       });
       loading.present();
+      setTimeout(() => {
+        loading.dismiss();
+      }, 5000);
       this.off.getOffData(barcodeData.text).then(data => {
         loading.dismiss();
         if (this.off.isProduct(data)) {
-          this.items.push({ name: data.product_name, bought: false, code: barcodeData.text });
+          // Open product info page
+          let infoModal = this.modalCtrl.create(ArticleDetailsPage, { article: data });
+          infoModal.onDidDismiss(name => {
+            if (name) {
+              this.items.push({ name: name, bought: false, code: barcodeData.text });
+            }
+          });
+          infoModal.present();
+
         } else {
           let toast = this.toastCtrl.create({
             message: 'Article inconnu !',
@@ -102,8 +115,15 @@ export class HomePage {
           });
           toast.present();
         }
+      }, err => {
+        loading.dismiss();
+        let toast = this.toastCtrl.create({
+          message: err,
+          duration: 1500
+        });
+        toast.present();
       });
-      
+
     }).catch(err => {
       console.log('Error', err);
       let toast = this.toastCtrl.create({

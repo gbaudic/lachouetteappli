@@ -67,15 +67,15 @@ export class SettingsPage {
   
   /** Ensure TAFs are ordered by date instead of order of entry */
   sortTaf(a: TafClass, b: TafClass): number {
-	if (a.startDate.valueOf() < b.startDate.valueOf()) {
-	  return -1;
-	} else {
-	  if (a.startDate.valueOf() === b.startDate.valueOf()) {
-		return 0;
-	  } else {
-		return 1;
-	  }
-	}
+    if (a.startDate.valueOf() < b.startDate.valueOf()) {
+      return -1;
+    } else {
+      if (a.startDate.valueOf() === b.startDate.valueOf()) {
+        return 0;
+      } else {
+        return 1;
+      }
+    }
   }
 
   addItem(): void {

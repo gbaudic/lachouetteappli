@@ -14,13 +14,24 @@
 
 
 <ion-content padding>
-  <h1>name - brand - qty</h1>
+  <h1>{{article.product_name}} - {{article.brands}} - {{article.quantity}}</h1>
   <button ion-button block small>
     <ion-icon name="add"></ion-icon>
     Ajouter à ma liste
   </button>
+  <p>Labels : {{article.labels_fr.join(", ")}}</p>
   <h3>Ingrédients</h3>
-  <p>...</p>
-  <h3>Informations nutrtionnelles</h3>
-  <p></p>
+  <p>{{article.ingredients_text_with_allergens_fr}}</p>
+  <h3>Informations nutritionnelles</h3>
+  <p>
+    Nutriscore: {{article.nutrition_grade_fr | uppercase}}<br />
+    Energie : {{article.energy_100g}} {{article.energy_unit}}<br />
+    Matières grasses : {{article.fat_100g}} {{article.fat_unit}}<br />
+    dont saturées : {{article.saturated-fat_100g}} {{article.saturated-fat_unit}}<br />
+    Glucides : {{article.carbohydrates_100g}} {{article.carbohydrates_unit}}<br />
+    dont sucres : {{article.sugars_100g}} {{article.sugars_unit}}<br />
+    Protéines : {{article.proteins_100g}} {{article.proteins_unit}}<br />
+    Fibres : {{article.fiber_100g}} {{article.fiber_unit}}<br />
+    Sel : {{article.salt_100g}} {{article.salt_unit}}
+  </p>
 </ion-content>

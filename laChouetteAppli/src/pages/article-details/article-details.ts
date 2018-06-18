@@ -26,6 +26,6 @@ export class ArticleDetailsPage {
   }
 
   addToShoppingList() {
-    this.viewCtrl.dismiss(article.product_name);
+    this.viewCtrl.dismiss(this.article.product_name);
   }
 }
