@@ -19,7 +19,7 @@ export class SettingsPage {
   firstName: string;
   lastName: string;
   email: string;
-  seeFuture = true;
+  seeFuture = "true"; // too bad, ion-segment uses strings...
   tafs: TafClass[] = [];
 
   constructor(public navCtrl: NavController,
@@ -58,11 +58,13 @@ export class SettingsPage {
       });
   }
 
-  /** Filter to hide TAFs located in the past (before today, excluded) */
+  /** Filter for TAFs located in the past (before today, excluded) 
+   *  A flag (this.seeFuture) allows to reverse the filter. 
+   */
   tafFilter(taf: TafClass): boolean {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
-    return this.seeFuture === (taf.startDate.valueOf() > today.valueOf());
+    return (this.seeFuture === "true") === (taf.startDate.valueOf() > today.valueOf());
   }
   
   /** Ensure TAFs are ordered by date instead of order of entry */
