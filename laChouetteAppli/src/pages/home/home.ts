@@ -93,14 +93,11 @@ export class HomePage {
         content: 'Requête à OpenFoodFacts...'
       });
       loading.present();
-      setTimeout(() => {
-        loading.dismiss();
-      }, 5000);
       this.off.getOffData(barcodeData.text).then(data => {
         loading.dismiss();
         if (this.off.isProduct(data)) {
           // Open product info page
-          let infoModal = this.modalCtrl.create(ArticleDetailsPage, { article: data });
+          let infoModal = this.modalCtrl.create(ArticleDetailsPage, { article: data.product });
           infoModal.onDidDismiss(name => {
             if (name) {
               this.items.push({ name: name, bought: false, code: barcodeData.text });

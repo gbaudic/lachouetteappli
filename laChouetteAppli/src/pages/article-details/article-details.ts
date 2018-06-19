@@ -25,6 +25,10 @@ export class ArticleDetailsPage {
   ionViewDidLoad() {
   }
 
+  close() {
+    this.viewCtrl.dismiss();
+  }
+
   addToShoppingList() {
     this.viewCtrl.dismiss(this.article.product_name);
   }

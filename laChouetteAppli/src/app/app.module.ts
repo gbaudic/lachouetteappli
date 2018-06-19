@@ -13,6 +13,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { CardPage } from '../pages/card/card';
 import { CalculatorPage } from '../pages/calculator/calculator';
 import { TafPage } from '../pages/taf/taf';
+import { ArticleDetailsPage } from '../pages/article-details/article-details';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,12 +32,13 @@ import { OffProvider } from '../providers/off/off';
     TabsPage,
     SettingsPage,
     CardPage,
-	CalculatorPage,
-	TafPage
+	  CalculatorPage,
+    TafPage,
+    ArticleDetailsPage
   ],
   imports: [
     BrowserModule,
-	HttpClientModule,
+	  HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -47,8 +49,9 @@ import { OffProvider } from '../providers/off/off';
     TabsPage,
     SettingsPage,
     CardPage,
-	CalculatorPage,
-	TafPage
+	  CalculatorPage,
+    TafPage,
+    ArticleDetailsPage
   ],
   providers: [
     StatusBar,
@@ -56,10 +59,10 @@ import { OffProvider } from '../providers/off/off';
     NativeStorage,
     BarcodeScanner,
     Brightness,
-	Dialogs,
+	  Dialogs,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-	{provide: LOCALE_ID, useValue:'fr'},
-	Calendar,
+	  {provide: LOCALE_ID, useValue:'fr'},
+	  Calendar,
     OffProvider
   ]
 })

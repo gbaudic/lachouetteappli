@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title>Article</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -15,23 +20,23 @@
 
 <ion-content padding>
   <h1>{{article.product_name}} - {{article.brands}} - {{article.quantity}}</h1>
-  <button ion-button block small>
+  <button ion-button block small (click)="addToShoppingList()">
     <ion-icon name="add"></ion-icon>
-    Ajouter à ma liste
+    &nbsp;Ajouter à ma liste
   </button>
-  <p>Labels : {{article.labels_fr.join(", ")}}</p>
+  <p>Labels : {{article.labels}}</p>
   <h3>Ingrédients</h3>
   <p>{{article.ingredients_text_with_allergens_fr}}</p>
   <h3>Informations nutritionnelles</h3>
   <p>
     Nutriscore: {{article.nutrition_grade_fr | uppercase}}<br />
-    Energie : {{article.energy_100g}} {{article.energy_unit}}<br />
-    Matières grasses : {{article.fat_100g}} {{article.fat_unit}}<br />
-    dont saturées : {{article.saturated-fat_100g}} {{article.saturated-fat_unit}}<br />
-    Glucides : {{article.carbohydrates_100g}} {{article.carbohydrates_unit}}<br />
-    dont sucres : {{article.sugars_100g}} {{article.sugars_unit}}<br />
-    Protéines : {{article.proteins_100g}} {{article.proteins_unit}}<br />
-    Fibres : {{article.fiber_100g}} {{article.fiber_unit}}<br />
-    Sel : {{article.salt_100g}} {{article.salt_unit}}
+    Energie : {{article.nutriments.energy_100g}} {{article.nutriments.energy_unit}}<br />
+    Matières grasses : {{article.nutriments.fat_100g}} {{article.nutriments.fat_unit}}<br />
+    dont saturées : {{article.nutriments['saturated-fat_100g']}} {{article.nutriments['saturated-fat_unit']}}<br />
+    Glucides : {{article.nutriments.carbohydrates_100g}} {{article.nutriments.carbohydrates_unit}}<br />
+    dont sucres : {{article.nutriments.sugars_100g}} {{article.nutriments.sugars_unit}}<br />
+    Protéines : {{article.nutriments.proteins_100g}} {{article.nutriments.proteins_unit}}<br />
+    Fibres : {{article.nutriments.fiber_100g}} {{article.nutriments.fiber_unit}}<br />
+    Sel : {{article.nutriments.salt_100g}} {{article.nutriments.salt_unit}}
   </p>
 </ion-content>
