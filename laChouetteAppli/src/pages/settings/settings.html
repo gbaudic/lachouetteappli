@@ -8,16 +8,17 @@
 
 
 <ion-content>
-  <ion-segment [(ngModel)]="seeFuture">
-    <ion-segment-button value="true">
+  <ion-segment [(ngModel)]="seeFuture" (ionChange)="refilter($event)">
+    <ion-segment-button value="futur">
       À venir
     </ion-segment-button>
-    <ion-segment-button value="false">
+    <ion-segment-button value="passe">
       Passés
     </ion-segment-button>
   </ion-segment>
+  <!-- try using a switch here, will it work? -->
   <ion-list>
-    <ion-item *ngFor="let taf of tafs.filter(tafFilter).sort(sortTaf)">
+    <ion-item *ngFor="let taf of filteredTafs">
         <h2>{{taf.occupation}}</h2>
         <p>le {{taf.startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>
       de <b>{{taf.startDate | date:'HH:mm'}}</b> à <b>{{taf.endDate | date:'HH:mm'}}</b></p>

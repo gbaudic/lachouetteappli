@@ -19,8 +19,9 @@ export class SettingsPage {
   firstName: string;
   lastName: string;
   email: string;
-  seeFuture = "true"; // too bad, ion-segment uses strings...
+  seeFuture: string = "futur"; // too bad, ion-segment uses strings...
   tafs: TafClass[] = [];
+  filteredTafs: TafClass[] = [];
 
   constructor(public navCtrl: NavController,
     private toastCtrl: ToastController,
@@ -31,7 +32,10 @@ export class SettingsPage {
     private calendar: Calendar) {
     platform.ready().then(() => {
       this.appPreferences.getItem('tafList').then(
-        res => { this.tafs = this.fromSavedTafs(res.tafs); },
+        res => {
+          this.tafs = this.fromSavedTafs(res.tafs);
+          this.refilter();
+        },
         err => {
           let toast = this.toastCtrl.create({
             message: 'Aucun TAF trouvé : ' + err,
@@ -58,13 +62,20 @@ export class SettingsPage {
       });
   }
 
+  refilter(segment?: string) {
+    if (segment) {
+      this.seeFuture = segment;
+    }
+    this.filteredTafs = this.tafs.filter(this.tafFilter).sort(this.sortTaf);
+  }
+
   /** Filter for TAFs located in the past (before today, excluded) 
    *  A flag (this.seeFuture) allows to reverse the filter. 
    */
   tafFilter(taf: TafClass): boolean {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
-    return (this.seeFuture === "true") === (taf.startDate.valueOf() > today.valueOf());
+    return ((this.seeFuture === "futur") === (taf.startDate.valueOf() > today.valueOf()));
   }
   
   /** Ensure TAFs are ordered by date instead of order of entry */
@@ -85,8 +96,9 @@ export class SettingsPage {
     let addModal = this.modalCtrl.create(TafPage);
     addModal.onDidDismiss(data => {
       if (data) {
-        console.log(data);
+        // console.log(data);
         this.tafs.push(data as TafClass);
+        this.refilter();
       }
     });
     addModal.present();
@@ -97,8 +109,9 @@ export class SettingsPage {
     let editModal = this.modalCtrl.create(TafPage, { tafToEdit: taf });
     editModal.onDidDismiss(data => {
       if (data) {
-        console.log(data);
+        // console.log(data);
         this.tafs[index] = data as TafClass;
+        this.refilter();
       }
     });
     editModal.present();
@@ -108,6 +121,7 @@ export class SettingsPage {
     let index = this.tafs.indexOf(taf);
     if (index > -1) {
       this.tafs.splice(index, 1);
+      this.refilter();
     }
   }
 
