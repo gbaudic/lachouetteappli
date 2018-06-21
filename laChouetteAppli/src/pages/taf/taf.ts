@@ -45,6 +45,15 @@ export class TafPage {
   ionViewDidLoad() {
   }
 
+  /** Automagically set end date when start date is touched
+   * Obviously setting end date does not affect start date */
+  bumpEndDate() {
+    let tempDate = new Date(this.nextStartDate);
+    tempDate.setSeconds(3600 * 3);
+    tempDate.setHours(tempDate.getHours() - tempDate.getTimezoneOffset() / 60);
+    this.nextEndDate = tempDate.toISOString().slice(0,-8);
+  }
+
   /** Perform a basic check on user inputs */
   validate(): boolean {
     if (this.nextOccupation === undefined || this.nextOccupation.length === 0) {
@@ -68,7 +77,7 @@ export class TafPage {
       // show dialog
       this.dialogs.alert('Données incorrectes !', 'Erreur')
         .then(() => { })
-		.catch(e => { });
+        .catch(e => { });
     } else {
       let newTaf = new TafClass();
       newTaf.occupation = this.nextOccupation;

@@ -27,10 +27,15 @@
     </ion-item>
     <ion-item>
         <ion-label>Date de début</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" min="2018" [(ngModel)]="nextStartDate" cancelText="Annuler" doneText="OK"></ion-datetime>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm"
+                      min="2018" max="2020" [(ngModel)]="nextStartDate"
+                      (ionChange)="bumpEndDate()"
+                      cancelText="Annuler" doneText="OK"></ion-datetime>
     </ion-item>
     <ion-item>
         <ion-label>Date de fin</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" min="2018" [(ngModel)]="nextEndDate" cancelText="Annuler" doneText="OK"></ion-datetime>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm"
+                      min="2018" max="2020" [(ngModel)]="nextEndDate"
+                      cancelText="Annuler" doneText="OK"></ion-datetime>
     </ion-item>
 </ion-content>
