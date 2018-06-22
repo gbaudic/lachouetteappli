@@ -8,7 +8,7 @@
 
 
 <ion-content>
-  <ion-segment [(ngModel)]="seeFuture" (ionChange)="refilter($event)">
+  <ion-segment [(ngModel)]="seeFuture">
     <ion-segment-button value="futur">
       À venir
     </ion-segment-button>
@@ -16,22 +16,43 @@
       Passés
     </ion-segment-button>
   </ion-segment>
-  <!-- try using a switch here, will it work? -->
-  <ion-list>
-    <ion-item *ngFor="let taf of filteredTafs">
+  <div [ngSwitch]="seeFuture">
+    <ion-list *ngSwitchCase="'futur'">
+      <ion-item *ngFor="let taf of tafs.filter(tafFilter).sort(sortTaf)">
         <h2>{{taf.occupation}}</h2>
-        <p>le {{taf.startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>
-      de <b>{{taf.startDate | date:'HH:mm'}}</b> à <b>{{taf.endDate | date:'HH:mm'}}</b></p>
+        <p>
+          le {{taf.startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>
+          de <b>{{taf.startDate | date:'HH:mm'}}</b> à <b>{{taf.endDate | date:'HH:mm'}}</b>
+        </p>
         <ion-buttons item-end>
-	      <button ion-button icon-only (click)="editItem(taf)" clear>
-		    <ion-icon name="create"></ion-icon>
-		  </button>
+          <button ion-button icon-only (click)="editItem(taf)" clear>
+            <ion-icon name="create"></ion-icon>
+          </button>
           <button ion-button icon-only (click)="deleteItem(taf)" clear>
             <ion-icon name="trash"></ion-icon>
           </button>
-	  </ion-buttons>
-    </ion-item>
-  </ion-list>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+    <ion-list *ngSwitchCase="'passe'">
+      <ion-item *ngFor="let taf of tafs.filter(!tafFilter).sort(sortTaf)">
+        <h2>{{taf.occupation}}</h2>
+        <p>
+          le {{taf.startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>
+          de <b>{{taf.startDate | date:'HH:mm'}}</b> à <b>{{taf.endDate | date:'HH:mm'}}</b>
+        </p>
+        <ion-buttons item-end>
+          <button ion-button icon-only (click)="editItem(taf)" clear>
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button ion-button icon-only (click)="deleteItem(taf)" clear>
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </div>
+  
   
   <ion-fab right bottom>
     <button ion-fab icon-only (click)="addItem()"><ion-icon name="add"></ion-icon></button>

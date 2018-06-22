@@ -34,7 +34,6 @@ export class SettingsPage {
       this.appPreferences.getItem('tafList').then(
         res => {
           this.tafs = this.fromSavedTafs(res.tafs);
-          this.refilter();
         },
         err => {
           let toast = this.toastCtrl.create({
@@ -75,7 +74,7 @@ export class SettingsPage {
   tafFilter(taf: TafClass): boolean {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
-    return ((this.seeFuture === "futur") === (taf.startDate.valueOf() > today.valueOf()));
+    return taf.startDate.valueOf() > today.valueOf();
   }
   
   /** Ensure TAFs are ordered by date instead of order of entry */
@@ -96,9 +95,7 @@ export class SettingsPage {
     let addModal = this.modalCtrl.create(TafPage);
     addModal.onDidDismiss(data => {
       if (data) {
-        // console.log(data);
         this.tafs.push(data as TafClass);
-        this.refilter();
       }
     });
     addModal.present();
@@ -109,9 +106,7 @@ export class SettingsPage {
     let editModal = this.modalCtrl.create(TafPage, { tafToEdit: taf });
     editModal.onDidDismiss(data => {
       if (data) {
-        // console.log(data);
         this.tafs[index] = data as TafClass;
-        this.refilter();
       }
     });
     editModal.present();
@@ -121,7 +116,6 @@ export class SettingsPage {
     let index = this.tafs.indexOf(taf);
     if (index > -1) {
       this.tafs.splice(index, 1);
-      this.refilter();
     }
   }
 
