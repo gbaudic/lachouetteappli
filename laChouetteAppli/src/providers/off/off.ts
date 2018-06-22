@@ -24,7 +24,7 @@ export class OffProvider {
   /** Helper function to tell when a product does not exist
       Data based on OFF wiki: https://en.wiki.openfoodfacts.org/API/Read/Product  */
   isProduct(data: any): boolean {
-    return data.code !== '32421';
+    return data.status !== 0;
   }
 
 }
