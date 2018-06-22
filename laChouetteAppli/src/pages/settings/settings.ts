@@ -21,7 +21,6 @@ export class SettingsPage {
   email: string;
   seeFuture: string = "futur"; // too bad, ion-segment uses strings...
   tafs: TafClass[] = [];
-  filteredTafs: TafClass[] = [];
 
   constructor(public navCtrl: NavController,
     private toastCtrl: ToastController,
@@ -61,20 +60,17 @@ export class SettingsPage {
       });
   }
 
-  refilter(segment?: string) {
-    if (segment) {
-      this.seeFuture = segment;
-    }
-    this.filteredTafs = this.tafs.filter(this.tafFilter).sort(this.sortTaf);
-  }
-
-  /** Filter for TAFs located in the past (before today, excluded) 
-   *  A flag (this.seeFuture) allows to reverse the filter. 
+  /** 
+   * Filter for TAFs located in the past (before today, excluded)  
    */
   tafFilter(taf: TafClass): boolean {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
     return taf.startDate.valueOf() > today.valueOf();
+  }
+  
+  notTafFilter(taf: TafClass): boolean {
+    return !this.tafFilter(taf);
   }
   
   /** Ensure TAFs are ordered by date instead of order of entry */

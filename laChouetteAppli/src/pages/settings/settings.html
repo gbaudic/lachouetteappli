@@ -35,7 +35,7 @@
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="'passe'">
-      <ion-item *ngFor="let taf of tafs.filter(!tafFilter).sort(sortTaf)">
+      <ion-item *ngFor="let taf of tafs.filter(notTafFilter).sort(sortTaf)">
         <h2>{{taf.occupation}}</h2>
         <p>
           le {{taf.startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>
