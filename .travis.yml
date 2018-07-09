@@ -1,9 +1,7 @@
 dist: trusty
 sudo: required
 language: android
-node_js:
-  - "node"
-  - "lts/*"
+
 jdk:
   - oraclejdk8
 
@@ -17,7 +15,7 @@ android:
 
 before_install:
   - sudo apt-get update
-  - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   - sudo apt-get install -y nodejs
   - npm cache clean
   - sudo npm i -g ionic cordova
@@ -30,8 +28,13 @@ install:
   
 script:
   - ionic cordova build android --prod
+  - sonar-scanner
 
 cache:
   directories:
     - "node_modules"
 
+addons:
+  sonarcloud:
+    organization: "gbaudic-github"
+  
