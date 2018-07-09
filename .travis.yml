@@ -22,8 +22,8 @@ before_install:
 install:
   - cd laChouetteAppli
   - npm install
-  - ionic cordova platform rm android
-  - ionic cordova platform add android
+  - sudo ionic cordova platform rm android
+  - sudo ionic cordova platform add android
   
 script:
   - ionic cordova build android --prod

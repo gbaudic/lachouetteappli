@@ -1,4 +1,7 @@
-# La Chouette Appli
+# La Chouette Appli 
+
+[![Build Status](https://travis-ci.org/gbaudic/lachouetteappli.svg?branch=master)](https://travis-ci.org/gbaudic/lachouetteappli)
+
 Maquette d'application mobile pour LCC, le projet de supermarché coopératif et participatif toulousain
 www.lachouettecoop.fr
 
@@ -8,7 +11,7 @@ www.lachouettecoop.fr
 
 - calcul de caisse espèces
 - liste de courses
-- pense-bête TAFs
+- pense-bête créneaux de participation
 - scan d'articles pour obtenir des informations supplémentaires (via OpenFoodFacts - nécessite une connexion Internet)
 
 A venir selon faisabilité technique : 
@@ -36,4 +39,4 @@ Attention: en mode release, bien effectuer les étapes complémentaires de signa
 
 ## Licence
 
-GPL v3. Voir le fichier LICENCE pour plus de détails. 
+GPL v3. Voir le fichier LICENSE pour plus de détails. 
