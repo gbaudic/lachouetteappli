@@ -17,13 +17,13 @@ before_install:
   - sudo apt-get update
   - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   - sudo apt-get install -y nodejs
-  - sudo npm i -g ionic cordova
+  - npm i ionic cordova
 
 install:
   - cd laChouetteAppli
   - npm install
-  - sudo ionic cordova platform rm android
-  - sudo ionic cordova platform add android
+  - ionic cordova platform rm android
+  - ionic cordova platform add android
   
 script:
   - ionic cordova build android --prod
