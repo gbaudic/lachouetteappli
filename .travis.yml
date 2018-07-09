@@ -4,6 +4,10 @@ language: android
 
 jdk:
   - oraclejdk8
+  
+addons:
+  sonarcloud:
+    organization: "gbaudic-github"
 
 android:
   components:
@@ -17,23 +21,19 @@ before_install:
   - sudo apt-get update
   - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   - sudo apt-get install -y nodejs
-  - npm i ionic cordova
+  - sudo npm i -g ionic cordova
 
 install:
   - cd laChouetteAppli
   - npm install
-  - ionic cordova platform rm android
-  - ionic cordova platform add android
+  - sudo ionic cordova platform rm android
+  - sudo ionic cordova platform add android
   
 script:
-  - ionic cordova build android --prod
+  - sudo ionic cordova build android --prod
   - sonar-scanner
 
 cache:
   directories:
     - "node_modules"
-
-addons:
-  sonarcloud:
-    organization: "gbaudic-github"
   
