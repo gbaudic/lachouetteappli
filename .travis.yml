@@ -31,7 +31,7 @@ install:
   
 script:
   - sudo ionic cordova build android --prod
-  - sonar-scanner
+  - cd .. & sonar-scanner
 
 cache:
   directories:
