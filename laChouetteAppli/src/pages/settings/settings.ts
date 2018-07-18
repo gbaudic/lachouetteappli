@@ -3,6 +3,7 @@ import { NavController, NavParams, Platform, ModalController, ToastController } 
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Calendar } from '@ionic-native/calendar';
 import { TafPage, TafClass } from '../taf/taf';
+import * as moment from 'moment';
 
 /**
  * Generated class for the SettingsPage page.
@@ -64,9 +65,9 @@ export class SettingsPage {
    * Filter for TAFs located in the past (before today, excluded)  
    */
   tafFilter(taf: TafClass): boolean {
-    let today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return taf.startDate.valueOf() > today.valueOf();
+    let today = moment.utc();
+    today.startOf('day');
+    return taf.startDate.isAfter(today);
   }
   
   notTafFilter(taf: TafClass): boolean {
@@ -75,10 +76,10 @@ export class SettingsPage {
   
   /** Ensure TAFs are ordered by date instead of order of entry */
   sortTaf(a: TafClass, b: TafClass): number {
-    if (a.startDate.valueOf() < b.startDate.valueOf()) {
+    if (a.startDate.isBefore(b.startDate)) {
       return -1;
     } else {
-      if (a.startDate.valueOf() === b.startDate.valueOf()) {
+      if (a.startDate.isSame(b.startDate)) {
         return 0;
       } else {
         return 1;
@@ -123,8 +124,8 @@ export class SettingsPage {
     for (let t of tafs) {
       let st = new SavedTaf();
       st.occupation = t.occupation;
-      st.startDate = t.startDate.toISOString();
-      st.endDate = t.endDate.toISOString();
+      st.startDate = t.startDate.toISOString(true);
+      st.endDate = t.endDate.toISOString(true);
       result.push(st);
     }
 
@@ -137,8 +138,8 @@ export class SettingsPage {
     for (let st of saved) {
       let t = new TafClass();
       t.occupation = st.occupation;
-      t.startDate = new Date(st.startDate);
-      t.endDate = new Date(st.endDate);
+      t.startDate = moment.utc(st.startDate);
+      t.endDate = moment.utc(st.endDate);
       result.push(t);
     }
 
@@ -146,6 +147,7 @@ export class SettingsPage {
   } 
 }
 
+// Class to deal with serializing dates for persistence
 export class SavedTaf {
   occupation: string;
   startDate: string;

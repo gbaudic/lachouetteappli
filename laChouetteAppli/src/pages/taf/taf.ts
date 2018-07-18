@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
+import { DatePicker } from '@ionic-native/date-picker';
+import * as moment from 'moment';
+import 'moment/locale/fr';
 
 /**
  * Generated class for the TafPage page.
@@ -22,23 +25,23 @@ export class TafPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
-    public dialogs: Dialogs) {
+    public dialogs: Dialogs,
+	private datePicker: DatePicker) {
     if (navParams.get('tafToEdit')) {
       let tafToEdit = navParams.get('tafToEdit') as TafClass;
       this.nextOccupation = tafToEdit.occupation;
-      let tempDate = new Date(tafToEdit.startDate);
-      tempDate.setHours(tempDate.getHours() - tempDate.getTimezoneOffset() / 60);
-      this.nextStartDate = tempDate.toISOString();
-      tempDate = new Date(tafToEdit.endDate);
-      tempDate.setHours(tempDate.getHours() - tempDate.getTimezoneOffset() / 60);
-      this.nextEndDate = tempDate.toISOString();
+      let tempDate = moment.utc(tafToEdit.startDate);
+      // tempDate.setHours(tempDate.getHours() - tempDate.getTimezoneOffset() / 60);
+      this.nextStartDate = tempDate.format('Y-MM-DDTHH:mm');
+      tempDate = moment.utc(tafToEdit.endDate);
+      // tempDate.setHours(tempDate.getHours() - tempDate.getTimezoneOffset() / 60);
+      this.nextEndDate = tempDate.format('Y-MM-DDTHH:mm');
     } else {
-      let today = new Date();
+      let today = moment.utc();
       // Awful trick to get around timezone issue because Ionic datepicker only understands
       // the ISO text representation, which includes timezone
-      today.setHours(today.getHours() - today.getTimezoneOffset() / 60);
-      this.nextEndDate = today.toISOString().slice(0,-8);
-      this.nextStartDate = today.toISOString().slice(0,-8);
+      this.nextEndDate = today.format('Y-MM-DDTHH:mm');
+      this.nextStartDate = today.format('Y-MM-DDTHH:mm');
     }
   }
 
@@ -48,10 +51,9 @@ export class TafPage {
   /** Automagically set end date when start date is touched
    * Obviously setting end date does not affect start date */
   bumpEndDate() {
-    let tempDate = new Date(this.nextStartDate);
-    tempDate.setSeconds(3600 * 3);
-    tempDate.setHours(tempDate.getHours() - tempDate.getTimezoneOffset() / 60);
-    this.nextEndDate = tempDate.toISOString().slice(0,-8);
+	let tempDate = moment.utc(this.nextStartDate);
+	tempDate.add(3, 'hours');
+    this.nextEndDate = tempDate.format('Y-MM-DDTHH:mm');
   }
 
   /** Perform a basic check on user inputs */
@@ -59,13 +61,13 @@ export class TafPage {
     if (this.nextOccupation === undefined || this.nextOccupation.length === 0) {
       return false;
     }
-    let today = new Date();
-    let start = new Date(this.nextStartDate);
-    let theEnd = new Date(this.nextEndDate);
-    if (this.nextStartDate === undefined || start.valueOf() < today.valueOf()) {
+    let today = moment.utc();
+    let start = moment.utc(this.nextStartDate);
+    let theEnd = moment.utc(this.nextEndDate);
+    if (this.nextStartDate === undefined || start.isBefore(today)) {
       return false;
     }
-    if (this.nextEndDate === undefined || theEnd.valueOf() < start.valueOf()) {
+    if (this.nextEndDate === undefined || theEnd.isBefore(start)) {
       return false;
     }
     return true;
@@ -81,11 +83,10 @@ export class TafPage {
     } else {
       let newTaf = new TafClass();
       newTaf.occupation = this.nextOccupation;
-      newTaf.endDate = new Date(this.nextEndDate);
+      newTaf.endDate = moment.utc(this.nextEndDate);
       // Get date back to its actual UTC value
-      newTaf.endDate.setHours(newTaf.endDate.getHours() + newTaf.endDate.getTimezoneOffset() / 60);
-      newTaf.startDate = new Date(this.nextStartDate);
-      newTaf.startDate.setHours(newTaf.startDate.getHours() + newTaf.startDate.getTimezoneOffset() / 60);
+      newTaf.startDate = moment.utc(this.nextStartDate);
+      // newTaf.startDate.setHours(newTaf.startDate.getHours() + newTaf.startDate.getTimezoneOffset() / 60);
       this.viewCtrl.dismiss(newTaf);
     }
   }
@@ -94,6 +95,6 @@ export class TafPage {
 
 export class TafClass {
   occupation: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Moment;
+  endDate: Moment;
 }
