@@ -3,6 +3,7 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
 import { DatePicker } from '@ionic-native/date-picker';
 import * as moment from 'moment';
+import { Moment } from 'moment';
 import 'moment/locale/fr';
 
 /**
