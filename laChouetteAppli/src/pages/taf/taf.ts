@@ -87,7 +87,6 @@ export class TafPage {
       newTaf.endDate = moment.utc(this.nextEndDate);
       // Get date back to its actual UTC value
       newTaf.startDate = moment.utc(this.nextStartDate);
-      // newTaf.startDate.setHours(newTaf.startDate.getHours() + newTaf.startDate.getTimezoneOffset() / 60);
       this.viewCtrl.dismiss(newTaf);
     }
   }

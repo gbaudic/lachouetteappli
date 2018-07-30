@@ -71,7 +71,9 @@ export class SettingsPage {
   }
   
   notTafFilter(taf: TafClass): boolean {
-    return !this.tafFilter(taf);
+    let today = moment.utc();
+    today.startOf('day');
+    return taf.startDate.isBefore(today);
   }
   
   /** Ensure TAFs are ordered by date instead of order of entry */

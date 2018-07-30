@@ -22,6 +22,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
 import { Dialogs } from '@ionic-native/dialogs';
 import { Calendar } from '@ionic-native/calendar';
+import { DatePicker } from '@ionic-native/date-picker';
 import { OffProvider } from '../providers/off/off';
 
 @NgModule({
@@ -63,7 +64,8 @@ import { OffProvider } from '../providers/off/off';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 	  {provide: LOCALE_ID, useValue:'fr'},
 	  Calendar,
-    OffProvider
+    OffProvider,
+    DatePicker
   ]
 })
 export class AppModule {}
