@@ -21,8 +21,8 @@
       <ion-item *ngFor="let taf of tafs.filter(tafFilter).sort(sortTaf)">
         <h2>{{taf.occupation}}</h2>
         <p>
-          le {{taf.startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>
-          de <b>{{taf.startDate | date:'HH:mm'}}</b> à <b>{{taf.endDate | date:'HH:mm'}}</b>
+          le {{taf.startDate.format('dddd D/MM/Y')}} <br>
+          de <b>{{taf.startDate.format('HH:mm')}}</b> à <b>{{taf.endDate.format('HH:mm')}}</b>
         </p>
         <ion-buttons item-end>
           <button ion-button icon-only (click)="editItem(taf)" clear>
@@ -38,8 +38,8 @@
       <ion-item *ngFor="let taf of tafs.filter(notTafFilter).sort(sortTaf)">
         <h2>{{taf.occupation}}</h2>
         <p>
-          le {{taf.startDate | date:'EEEE dd/MM/yyyy':'':'fr'}} <br>
-          de <b>{{taf.startDate | date:'HH:mm'}}</b> à <b>{{taf.endDate | date:'HH:mm'}}</b>
+          le {{taf.startDate.format('dddd D/MM/Y')}} <br>
+          de <b>{{taf.startDate.format('HH:mm')}}</b> à <b>{{taf.endDate.format('HH:mm')}}</b>
         </p>
         <ion-buttons item-end>
           <button ion-button icon-only (click)="editItem(taf)" clear>
