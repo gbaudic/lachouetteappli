@@ -32,4 +32,19 @@ export class ArticleDetailsPage {
   addToShoppingList() {
     this.viewCtrl.dismiss(this.article.product_name);
   }
+  
+  getNovaText(nova: string) {
+    switch(nova) {
+	  case "1": 
+	    return "Aliments non transformés ou transformés minimalement";
+	  case "2":
+	    return "Ingrédients culinaires transformés";
+	  case "3":
+	    return "Aliments transformés";
+	  case "4":
+	    return "Produits alimentaires et boissons ultra-transformés";
+	  default:
+	    return "inconnu";
+	}
+  }
 }
