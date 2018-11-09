@@ -5,16 +5,16 @@
 Maquette d'application mobile pour LCC, le projet de supermarché coopératif et participatif toulousain
 www.lachouettecoop.fr
 
-**ATTENTION** : si vous n'êtes pas membre, cette application n'est que d'une utilité limitée. 
+**ATTENTION** : si vous n'êtes pas membre de la coopérative, cette application n'est que d'une utilité limitée. 
 
-## Fonctionnalités prévues
+## Fonctionnalités
 
 - calcul de caisse espèces
 - liste de courses
 - pense-bête créneaux de participation
-- scan d'articles pour obtenir des informations supplémentaires (via OpenFoodFacts - nécessite une connexion Internet)
+- scan d'articles pour obtenir des informations supplémentaires (via OpenFoodFacts - nécessite une connexion Internet) ou ajouter l'article à la liste de courses
 
-A venir selon faisabilité technique : 
+A venir selon faisabilité technique et besoins exprimés : 
 
 - liens vers le journal _le bec et la plume_
 - relevés de prix
@@ -28,8 +28,8 @@ A venir selon faisabilité technique :
 
 ## Compilation
 
-`npm install -g ionic cordova`  
-`npm install` pour les paquets javascript  
+`npm install -g ionic cordova@8.0.0`  
+`cd laChouetteAppli && npm install` pour les paquets javascript  
 `ionic cordova add android`  
 Vérifier qu'un dossier plugins a été créé et que le fichier `android.json` contient bien la liste dans la partie `installed_plugins`.  
 
