@@ -26,14 +26,11 @@ before_install:
 install:
   - cd laChouetteAppli
   - npm install
-  - sudo ionic cordova platform rm android
-  - sudo ionic cordova platform add android
+  - ionic cordova platform rm android
+  - ionic cordova platform add android
   
 script:
-  - sudo ionic cordova build android --prod
-#  - cd .. && sonar-scanner
+  - cd .. && sonar-scanner
+  - cd laChouetteAppli && ionic cordova build android --prod
 
-cache:
-  directories:
-    - "node_modules"
-  
+ 
