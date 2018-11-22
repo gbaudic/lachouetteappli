@@ -30,7 +30,7 @@ install:
   - ionic cordova platform add android
   
 script:
+  - ionic cordova build android --prod
   - cd .. && sonar-scanner
-  - cd laChouetteAppli && ionic cordova build android --prod
 
  
