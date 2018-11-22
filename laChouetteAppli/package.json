@@ -61,7 +61,7 @@
   "cordova": {
     "plugins": {
       "phonegap-plugin-barcodescanner": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+        "ANDROID_SUPPORT_V4_VERSION": "27.1.0"
       },
       "cordova-plugin-brightness": {},
       "cordova-plugin-whitelist": {},
@@ -73,7 +73,7 @@
       "cordova-plugin-nativestorage": {},
       "cordova-plugin-calendar": {},
       "cordova-android-support-gradle-release": {
-        "ANDROID_SUPPORT_VERSION": "27.+"
+        "ANDROID_SUPPORT_VERSION": "27.1.0"
       },
       "cordova-plugin-datepicker": {}
     }
