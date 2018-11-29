@@ -1,6 +1,7 @@
 # La Chouette Appli 
 
 [![Build Status](https://travis-ci.org/gbaudic/lachouetteappli.svg?branch=master)](https://travis-ci.org/gbaudic/lachouetteappli)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=la_chouette_appli&metric=alert_status)](https://sonarcloud.io/dashboard?id=la_chouette_appli)
 
 Maquette d'application mobile pour LCC, le projet de supermarché coopératif et participatif toulousain
 www.lachouettecoop.fr
