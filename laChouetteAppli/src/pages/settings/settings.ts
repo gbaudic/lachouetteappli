@@ -35,13 +35,7 @@ export class SettingsPage {
         res => {
           this.tafs = this.fromSavedTafs(res.tafs);
         },
-        err => {
-          let toast = this.toastCtrl.create({
-            message: 'Aucun TAF trouvé : ' + err,
-            duration: 1500
-          });
-          toast.present();
-        });
+        err => this.errorToast('Aucun créneau trouvé ', err));
     });
   }
 
@@ -52,13 +46,15 @@ export class SettingsPage {
     // Save changes
     this.appPreferences.setItem('tafList', { tafs: this.toSavedTafs(this.tafs) })
       .then(() => { },
-      err => {
-        let toast = this.toastCtrl.create({
-          message: 'Erreur TAF : ' + err,
-          duration: 1500
-        });
-        toast.present();
-      });
+      err => this.errorToast('Erreur: ', err));
+  }
+  
+  errorToast(msg: string, err) {
+	let toast = this.toastCtrl.create({
+        message: msg + err,
+        duration: 1500
+    });
+    toast.present();
   }
 
   /** 

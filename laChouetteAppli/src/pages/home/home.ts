@@ -29,29 +29,24 @@ export class HomePage {
     // Load saved data if exists
     this.nativeStorage.getItem('shoppingList').then(
       data => { this.items = data.items; },
-      err => {
-        let toast = this.toastCtrl.create({
-          message: 'Aucune liste trouvée : ' + err,
-          duration: 1500
-        });
-        toast.present();
-        console.log(err);
-      });
+      err => this.showToast('Aucune liste trouvée : ' + err)
+    );
   }
 
   ionViewWillLeave() {
     // Save data
     this.nativeStorage.setItem('shoppingList', { items: this.items }).then(
       () => { },
-      err => {
-        let toast = this.toastCtrl.create({
-          message: 'Problème de sauvegarde : ' + err,
-          duration: 1500
-        });
-        toast.present();
-        console.log(err);
-      }
+      err => this.showToast('Problème de sauvegarde : ' + err)
     );
+  }
+  
+  showToast(msg: string) {
+	let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 1500
+    });
+    toast.present();
   }
 
   addItem(): void {
@@ -106,28 +101,16 @@ export class HomePage {
           infoModal.present();
 
         } else {
-          let toast = this.toastCtrl.create({
-            message: 'Article inconnu !',
-            duration: 1500
-          });
-          toast.present();
+          this.showToast('Article inconnu !');
         }
       }, err => {
         loading.dismiss();
-        let toast = this.toastCtrl.create({
-          message: err,
-          duration: 1500
-        });
-        toast.present();
+        this.showToast(err);
       });
 
     }).catch(err => {
       console.log('Error', err);
-      let toast = this.toastCtrl.create({
-        message: err,
-        duration: 1500
-      });
-      toast.present();
+      this.showToast(err);
     });
   }
 

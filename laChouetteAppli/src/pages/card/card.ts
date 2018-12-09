@@ -33,14 +33,16 @@ export class CardPage {
         this.cardNumber = res.cardNumber; 
         setTimeout(() => { this.drawCard(); }, 0);
       },
-      err => {
-        let toast = this.toastCtrl.create({
-          message: err,
-          duration: 1500
-        });
-        toast.present();
-      });
+      err => this.showToast(err));
     // console.log('ionViewDidLoad CardPage');
+  }
+  
+  showToast(err) {
+	let toast = this.toastCtrl.create({
+      message: err,
+      duration: 1500
+    });
+    toast.present();
   }
 
   ionViewWillEnter() {
@@ -54,21 +56,11 @@ export class CardPage {
       console.log('Barcode data', barcodeData);
       this.cardNumber = barcodeData.text;
       this.appPreferences.setItem('cardNumber', { cardNumber: barcodeData.text })
-        .then(() => { }, err => {
-          let toast = this.toastCtrl.create({
-            message: err,
-            duration: 1500
-          });
-          toast.present();
-        });
+        .then(() => { }, err => { this.showToast(err) });
       setTimeout(() => { this.drawCard(); }, 0);
     }).catch(err => {
       console.log('Error', err);
-      let toast = this.toastCtrl.create({
-        message: err,
-        duration: 1500
-      });
-      toast.present();
+      this.showToast(err);
     });
   }
 
