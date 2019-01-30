@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Saisie T&Agrave;F</ion-title>
+    <ion-title>Saisie PIAF</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="send()">
         <ion-icon name="checkmark"></ion-icon>
@@ -28,7 +28,7 @@
     <ion-item>
         <ion-label>Date de début</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY HH:mm"
-                      min="2018" max="2020" [(ngModel)]="nextStartDate"
+                      min="2019" max="2022" [(ngModel)]="nextStartDate"
 					  minuteValues="0,15,30,45"
                       (ionChange)="bumpEndDate()"
                       cancelText="Annuler" doneText="OK"></ion-datetime>
@@ -36,7 +36,7 @@
     <ion-item>
         <ion-label>Date de fin</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY HH:mm"
-                      min="2018" max="2020" [(ngModel)]="nextEndDate"
+                      min="2019" max="2022" [(ngModel)]="nextEndDate"
 					  minuteValues="0,15,30,45"
                       cancelText="Annuler" doneText="OK"></ion-datetime>
     </ion-item>
