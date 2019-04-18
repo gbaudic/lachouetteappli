@@ -18,8 +18,9 @@ www.lachouettecoop.fr
 A venir selon faisabilité technique et besoins exprimés : 
 
 - liens vers le journal _le bec et la plume_
-- relevés de prix
+- ~~relevés de prix~~
 - carte de membre dématérialisée
+- accès à des infos supplémentaires sur les produits via QR code
 
 ## Prérequis
 
