@@ -81,32 +81,38 @@ export class HomePage {
   }
 
   launchScan(): void {
-    this.barcodeScanner.scan({ formats: 'EAN_13' }).then(barcodeData => {
+    this.barcodeScanner.scan({ formats: 'EAN_13,QR_CODE' }).then(barcodeData => {
       console.log('Barcode data', barcodeData);
-      let loading = this.loadCtrl.create({
-        dismissOnPageChange: true,
-        content: 'Requête à OpenFoodFacts...'
-      });
-      loading.present();
-      this.off.getOffData(barcodeData.text).then(data => {
-        loading.dismiss();
-        if (this.off.isProduct(data)) {
-          // Open product info page
-          let infoModal = this.modalCtrl.create(ArticleDetailsPage, { article: data.product });
-          infoModal.onDidDismiss(name => {
-            if (name) {
-              this.items.push({ name: name, bought: false, code: barcodeData.text });
-            }
-          });
-          infoModal.present();
+      if(barcodeData.format == 'EAN_13) {
+        let loading = this.loadCtrl.create({
+          dismissOnPageChange: true,
+          content: 'Requête à OpenFoodFacts...'
+        });
+        loading.present();
+        this.off.getOffData(barcodeData.text).then(data => {
+          loading.dismiss();
+          if (this.off.isProduct(data)) {
+            // Open product info page
+            let infoModal = this.modalCtrl.create(ArticleDetailsPage, { article: data.product });
+            infoModal.onDidDismiss(name => {
+              if (name) {
+                this.items.push({ name: name, bought: false, code: barcodeData.text });
+              }
+            });
+            infoModal.present();
 
-        } else {
-          this.showToast('Article inconnu !');
-        }
-      }, err => {
-        loading.dismiss();
-        this.showToast(err);
-      });
+          } else {
+            this.showToast('Article inconnu !');
+          }
+        }, err => {
+          loading.dismiss();
+          this.showToast(err);
+        });
+    } else {
+       // URL: open a browser 
+       // TODO: check this and refine if needed
+       window.open(barcodeData.text, '_system');
+    }
 
     }).catch(err => {
       console.log('Error', err);
