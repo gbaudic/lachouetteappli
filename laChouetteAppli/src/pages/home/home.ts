@@ -83,7 +83,7 @@ export class HomePage {
   launchScan(): void {
     this.barcodeScanner.scan({ formats: 'EAN_13,QR_CODE' }).then(barcodeData => {
       console.log('Barcode data', barcodeData);
-      if(barcodeData.format == 'EAN_13) {
+      if(barcodeData.format == 'EAN_13') {
         let loading = this.loadCtrl.create({
           dismissOnPageChange: true,
           content: 'Requête à OpenFoodFacts...'
