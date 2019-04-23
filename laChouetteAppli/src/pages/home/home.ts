@@ -109,9 +109,12 @@ export class HomePage {
           this.showToast(err);
         });
     } else {
-       // URL: open a browser 
-       // TODO: check this and refine if needed
-       window.open(barcodeData.text, '_system');
+      // URL: open a browser 
+      // TODO: check this and refine if needed
+      let val = RegExp(/^https?:\/\//);
+      if(val.test(barcodeData.text)) {
+        window.open(barcodeData.text, '_system');
+      }
     }
 
     }).catch(err => {
