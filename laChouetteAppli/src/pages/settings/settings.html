@@ -1,13 +1,25 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Mon pense-b&ecirc;te PIAF</ion-title>
+    <ion-title>Mes PIAF</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
+  <ion-grid>
+    <ion-row style="text-align: center">
+      <ion-col col-6 >
+	  Prochaine<br>
+	  <span [ngClass]="{'piaf-ok': piafsAfter.length > 0 && isPiafInDelay(piafsAfter[0]) , 'piaf-ko': piafsAfter.length > 0 && !isPiafInDelay(piafsAfter[0]), 'piaf-nonext': piafsAfter.length === 0}">{{piafsAfter.length > 0 ? 'le ' + piafsAfter[0].startDate.format('DD/MM') : 'Aucune' }}</span>
+	  </ion-col>
+	  <ion-col col-6>
+	  Dernière<br>
+	  <span [ngClass]="{'piaf-ok': piafsBefore.length > 0 && isPiafInDelay(piafsBefore[0]) , 'piaf-ko': piafsBefore.length === 0 || !isPiafInDelay(piafsBefore[0])}">{{piafsBefore.length > 0 ? 'le ' + piafsBefore[0].startDate.format('DD/MM') : 'Aucune' }}</span>
+	  </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-segment [(ngModel)]="seeFuture">
     <ion-segment-button value="futur">
       À venir
@@ -18,34 +30,34 @@
   </ion-segment>
   <div [ngSwitch]="seeFuture">
     <ion-list *ngSwitchCase="'futur'">
-      <ion-item *ngFor="let taf of tafs.filter(tafFilter).sort(sortTaf)">
-        <h2>{{taf.occupation}}</h2>
+      <ion-item *ngFor="let p of piafsAfter">
+        <h2>{{p.occupation}}</h2>
         <p>
-          le {{taf.startDate.format('dddd D/MM/Y')}} <br>
-          de <strong>{{taf.startDate.format('HH:mm')}}</strong> à <strong>{{taf.endDate.format('HH:mm')}}</strong>
+          le {{p.startDate.format('dddd D/MM/Y')}} <br>
+          de <strong>{{p.startDate.format('HH:mm')}}</strong> à <strong>{{p.endDate.format('HH:mm')}}</strong>
         </p>
         <ion-buttons item-end>
-          <button ion-button icon-only (click)="editItem(taf)" clear>
+          <button ion-button icon-only (click)="editItem(p)" clear>
             <ion-icon name="create"></ion-icon>
           </button>
-          <button ion-button icon-only (click)="deleteItem(taf)" clear>
+          <button ion-button icon-only (click)="deleteItem(p)" clear>
             <ion-icon name="trash"></ion-icon>
           </button>
         </ion-buttons>
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="'passe'">
-      <ion-item *ngFor="let taf of tafs.filter(notTafFilter).sort(sortTaf)">
-        <h2>{{taf.occupation}}</h2>
+      <ion-item *ngFor="let p of piafsBefore">
+        <h2>{{p.occupation}}</h2>
         <p>
-          le {{taf.startDate.format('dddd D/MM/Y')}} <br>
-          de <strong>{{taf.startDate.format('HH:mm')}}</strong> à <strong>{{taf.endDate.format('HH:mm')}}</strong>
+          le {{p.startDate.format('dddd D/MM/Y')}} <br>
+          de <strong>{{p.startDate.format('HH:mm')}}</strong> à <strong>{{p.endDate.format('HH:mm')}}</strong>
         </p>
         <ion-buttons item-end>
-          <button ion-button icon-only (click)="editItem(taf)" clear>
+          <button ion-button icon-only (click)="editItem(p)" clear>
             <ion-icon name="create"></ion-icon>
           </button>
-          <button ion-button icon-only (click)="deleteItem(taf)" clear>
+          <button ion-button icon-only (click)="deleteItem(p)" clear>
             <ion-icon name="trash"></ion-icon>
           </button>
         </ion-buttons>

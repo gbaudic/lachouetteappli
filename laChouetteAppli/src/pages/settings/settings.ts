@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, ModalController, ToastController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Calendar } from '@ionic-native/calendar';
-import { TafPage, TafClass } from '../taf/taf';
+import { TafPage, TafClass } from '../piaf/piaf';
 import * as moment from 'moment';
 
 /**
@@ -21,7 +21,10 @@ export class SettingsPage {
   lastName: string;
   email: string;
   seeFuture: string = "futur"; // too bad, ion-segment uses strings...
-  tafs: TafClass[] = [];
+  piafs: TafClass[] = [];
+  piafsBefore: TafClass[] = [];
+  piafsAfter: TafClass[] = [];
+  weekDelta = 4;
 
   constructor(public navCtrl: NavController,
     private toastCtrl: ToastController,
@@ -33,7 +36,8 @@ export class SettingsPage {
     platform.ready().then(() => {
       this.appPreferences.getItem('tafList').then(
         res => {
-          this.tafs = this.fromSavedTafs(res.tafs);
+          this.piafs = this.fromSavedTafs(res.tafs);
+		  this.updateArrays();
         },
         err => this.errorToast('Aucun créneau trouvé ', err));
     });
@@ -44,7 +48,7 @@ export class SettingsPage {
 
   ionViewWillLeave() {
     // Save changes
-    this.appPreferences.setItem('tafList', { tafs: this.toSavedTafs(this.tafs) })
+    this.appPreferences.setItem('tafList', { tafs: this.toSavedTafs(this.piafs) })
       .then(() => { },
       err => this.errorToast('Erreur: ', err));
   }
@@ -55,6 +59,11 @@ export class SettingsPage {
         duration: 1500
     });
     toast.present();
+  }
+  
+  updateArrays(): void {
+    this.piafsAfter = this.piafs.filter(this.tafFilter).sort(this.sortTaf);
+	this.piafsBefore = this.piafs.filter(this.notTafFilter).sort(this.sortTaf).reverse();
   }
 
   /** 
@@ -70,6 +79,14 @@ export class SettingsPage {
     let today = moment.utc();
     today.startOf('day');
     return taf.startDate.isBefore(today);
+  }
+  
+  /**
+   * Determine if a PIAF is within the 4-week margin
+   */
+  isPiafInDelay(p: TafClass): boolean {
+    let today = moment.utc();
+	return Math.abs(today.diff(p.startDate, 'weeks')) <= this.weekDelta;
   }
   
   /** Ensure TAFs are ordered by date instead of order of entry */
@@ -90,27 +107,30 @@ export class SettingsPage {
     let addModal = this.modalCtrl.create(TafPage);
     addModal.onDidDismiss(data => {
       if (data) {
-        this.tafs.push(data as TafClass);
+        this.piafs.push(data as TafClass);
+		this.updateArrays();
       }
     });
     addModal.present();
   }
 
   editItem(taf: TafClass): void {
-    let index = this.tafs.indexOf(taf);
+    let index = this.piafs.indexOf(taf);
     let editModal = this.modalCtrl.create(TafPage, { tafToEdit: taf });
     editModal.onDidDismiss(data => {
       if (data) {
-        this.tafs[index] = data as TafClass;
+        this.piafs[index] = data as TafClass;
+		this.updateArrays();
       }
     });
     editModal.present();
   }
 
   deleteItem(taf: TafClass): void {
-    let index = this.tafs.indexOf(taf);
+    let index = this.piafs.indexOf(taf);
     if (index > -1) {
-      this.tafs.splice(index, 1);
+      this.piafs.splice(index, 1);
+	  this.updateArrays();
     }
   }
 

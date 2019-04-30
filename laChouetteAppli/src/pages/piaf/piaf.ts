@@ -15,7 +15,7 @@ import 'moment/locale/fr';
 
 @Component({
   selector: 'page-taf',
-  templateUrl: 'taf.html',
+  templateUrl: 'piaf.html',
 })
 export class TafPage {
   nextTAF: TafClass;

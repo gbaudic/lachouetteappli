@@ -12,7 +12,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { CardPage } from '../pages/card/card';
 import { CalculatorPage } from '../pages/calculator/calculator';
-import { TafPage } from '../pages/taf/taf';
+import { TafPage } from '../pages/piaf/piaf';
 import { ArticleDetailsPage } from '../pages/article-details/article-details';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -33,7 +33,7 @@ import { OffProvider } from '../providers/off/off';
     TabsPage,
     SettingsPage,
     CardPage,
-	  CalculatorPage,
+	CalculatorPage,
     TafPage,
     ArticleDetailsPage
   ],
@@ -50,7 +50,7 @@ import { OffProvider } from '../providers/off/off';
     TabsPage,
     SettingsPage,
     CardPage,
-	  CalculatorPage,
+	CalculatorPage,
     TafPage,
     ArticleDetailsPage
   ],
