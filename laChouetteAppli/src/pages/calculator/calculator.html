@@ -17,6 +17,9 @@
 
 
 <ion-content>
+	<ion-item text-right>
+		<strong>Total : {{compute() / 100 | currency:'EUR':'symbol':'1.2-2':'fr'}}</strong>
+	</ion-item>
     <ion-grid>
         <ion-row *ngFor="let el of amounts" align-items-center>
             <ion-col col-4 text-right>{{el[0] / 100 | currency:'EUR':'symbol':'1.2-2':'fr'}} x</ion-col>
