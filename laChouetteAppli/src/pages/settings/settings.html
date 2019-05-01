@@ -29,8 +29,9 @@
     </ion-segment-button>
   </ion-segment>
   <div [ngSwitch]="seeFuture">
-    <ion-list *ngSwitchCase="'futur'">
-      <ion-item *ngFor="let p of piafsAfter">
+    <div *ngFor="let cat of [['futur', piafsAfter], ['passe', piafsBefore]]">
+	  <ion-list *ngSwitchCase="cat[0]">
+      <ion-item *ngFor="let p of cat[1]">
         <h2>{{p.occupation}}</h2>
         <p>
           le {{p.startDate.format('dddd D/MM/Y')}} <br>
@@ -45,24 +46,8 @@
           </button>
         </ion-buttons>
       </ion-item>
-    </ion-list>
-    <ion-list *ngSwitchCase="'passe'">
-      <ion-item *ngFor="let p of piafsBefore">
-        <h2>{{p.occupation}}</h2>
-        <p>
-          le {{p.startDate.format('dddd D/MM/Y')}} <br>
-          de <strong>{{p.startDate.format('HH:mm')}}</strong> à <strong>{{p.endDate.format('HH:mm')}}</strong>
-        </p>
-        <ion-buttons item-end>
-          <button ion-button icon-only (click)="editItem(p)" clear>
-            <ion-icon name="create"></ion-icon>
-          </button>
-          <button ion-button icon-only (click)="deleteItem(p)" clear>
-            <ion-icon name="trash"></ion-icon>
-          </button>
-        </ion-buttons>
-      </ion-item>
-    </ion-list>
+      </ion-list>
+	</div>
   </div>
   
   
