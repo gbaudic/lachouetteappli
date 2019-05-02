@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 sudo: required
 language: android
 
@@ -30,7 +30,14 @@ install:
   - ionic cordova platform add android
   
 script:
-  - ionic cordova build android --prod
+  - ionic cordova build android --prod --release
   - cd .. && sonar-scanner
 
- 
+deploy:
+  provider: releases
+  api_key: "${GITHUB_RELEASE_TOKEN}"
+  file: laChouetteAppli/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+  skip_cleanup: true
+  draft: true
+  on:
+    tags: true  
