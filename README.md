@@ -12,15 +12,15 @@ www.lachouettecoop.fr
 
 - calcul de caisse espèces
 - liste de courses
-- pense-bête créneaux de participation
+- pense-bête créneaux de participation, avec vue synthétique (dernière/prochaine PIAF)
 - scan d'articles pour obtenir des informations supplémentaires (via OpenFoodFacts - nécessite une connexion Internet) ou ajouter l'article à la liste de courses
+- accès à des infos supplémentaires sur les produits via QR code
 
 A venir selon faisabilité technique et besoins exprimés : 
 
 - liens vers le journal _le bec et la plume_
 - ~~relevés de prix~~
 - carte de membre dématérialisée
-- accès à des infos supplémentaires sur les produits via QR code
 
 ## Prérequis
 
