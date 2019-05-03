@@ -1,8 +1,8 @@
 {
   "name": "laChouetteAppli",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "Gwilherm Baudic",
-  "homepage": "http://lachouettecoop.fr",
+  "homepage": "https://lachouettecoop.fr",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
