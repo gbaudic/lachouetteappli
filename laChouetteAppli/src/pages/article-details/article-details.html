@@ -22,16 +22,29 @@
   <h3>Ingrédients</h3>
   <p [innerHTML]="article.ingredients_text_with_allergens_fr"></p>
   <h3>Informations nutritionnelles</h3>
+  <ion-grid>
+    <ion-row style="text-align: center">
+      <ion-col col-6>
+        <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{article.nutrition_grade_fr | lowercase}}.svg" alt="Nutriscore {{article.nutrition_grade_fr | uppercase}}">
+      </ion-col>
+      <ion-col col-6>
+        <img src="https://static.openfoodfacts.org/images/misc/nova-group-{{article.nova_group}}.svg" alt="Nova {{article.nova_group}}">
+        <br>
+        {{getNovaText(article.nova_group)}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <p>
-    Nutriscore : {{article.nutrition_grade_fr | uppercase}}<br />
-	Catégorie NOVA : {{article.nova_group}} ({{getNovaText(article.nova_group)}})<br />
     Energie : {{article.nutriments.energy_100g}} {{article.nutriments.energy_unit}}<br />
     Matières grasses : {{article.nutriments.fat_100g}} {{article.nutriments.fat_unit}}<br />
-    dont saturées : {{article.nutriments['saturated-fat_100g']}} {{article.nutriments['saturated-fat_unit']}}<br />
+    &nbsp;dont saturées : {{article.nutriments['saturated-fat_100g']}} {{article.nutriments['saturated-fat_unit']}}<br />
     Glucides : {{article.nutriments.carbohydrates_100g}} {{article.nutriments.carbohydrates_unit}}<br />
-    dont sucres : {{article.nutriments.sugars_100g}} {{article.nutriments.sugars_unit}}<br />
+    &nbsp;dont sucres : {{article.nutriments.sugars_100g}} {{article.nutriments.sugars_unit}}<br />
     Protéines : {{article.nutriments.proteins_100g}} {{article.nutriments.proteins_unit}}<br />
     Fibres : {{article.nutriments.fiber_100g}} {{article.nutriments.fiber_unit}}<br />
     Sel : {{article.nutriments.salt_100g}} {{article.nutriments.salt_unit}}
+  </p>
+  <p>
+    Données issues de la base OpenFoodFacts sous licence ODbL et fournies à titre indicatif. 
   </p>
 </ion-content>
