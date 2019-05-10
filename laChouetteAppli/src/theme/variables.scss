@@ -48,6 +48,20 @@ $colors: (
 
 $text-color: #000;
 
+$toolbar-background: map-get($colors, "lcc");
+$toolbar-text-color: #fff;
+$fab-ios-background-color: map-get($colors, "lcc");
+$fab-md-background-color: $fab-ios-background-color;
+$tabs-background: map-get($colors, "lcc");
+$tabs-tab-color-active: #c0d29f;
+$tabs-tab-color-inactive: #fff;
+$tabs-md-tab-text-color-active: #c0d29f;
+$tabs-md-tab-text-color: #fff;
+$tabs-md-tab-icon-color: $tabs-tab-color-inactive;
+$tabs-ios-tab-text-color-active: #c0d29f;
+$tabs-ios-tab-text-color: #fff;
+$tabs-ios-tab-icon-color: $tabs-tab-color-inactive;
+
 
 // App iOS Variables
 // --------------------------------------------------
