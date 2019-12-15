@@ -20,13 +20,24 @@ A venir selon faisabilité technique et besoins exprimés :
 
 - liens vers le journal _le bec et la plume_
 - ~~relevés de prix~~
-- carte de membre dématérialisée
+- ~~carte de membre dématérialisée~~ (rendu caduc par les nouvelles cartes avec photo, mais présent dans le code)
 
-## Prérequis
+## Galerie
+
+![logo](screenshots/list.png "liste de courses")
+![logo](screenshots/article.png "Vue article scanné")
+![logo](screenshots/caisse.png "comptage caisse espèces")
+![logo](screenshots/piafs.png "PIAFs")
+
+## Prérequis pour le développement
 
 - Node.js >= 6
 - Pour le développement Android : JDK 1.8.* (Java 9 et supérieur n'est pas supporté), Android Studio avec le SDK Android, un téléphone sous Android paramétré pour le développement (sources inconnues/apps non signées/mode développeur)
 - Pour le développement sous iOS : un Mac avec XCode, un iPhone
+
+## Prérequis utilisateur
+
+- Android récent avec sources inconnues activées
 
 ## Compilation
 
