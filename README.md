@@ -24,10 +24,7 @@ A venir selon faisabilité technique et besoins exprimés :
 
 ## Galerie
 
-![logo](screenshots/list.png "liste de courses")
-![logo](screenshots/article.png "Vue article scanné")
-![logo](screenshots/caisse.png "comptage caisse espèces")
-![logo](screenshots/piafs.png "PIAFs")
+<img src="screenshots/list.png" alt="liste de courses" width="200"/> <img src="screenshots/article.png" alt="Vue article scanné" width="200"/> <img src="screenshots/caisse.png" alt="comptage caisse espèces" width="200"/> <img src="screenshots/piafs.png" alt="PIAFs" width="200"/>
 
 ## Prérequis pour le développement
 
@@ -37,7 +34,7 @@ A venir selon faisabilité technique et besoins exprimés :
 
 ## Prérequis utilisateur
 
-- Android récent avec sources inconnues activées
+- Android récent (>= 5.x) avec sources inconnues activées
 
 ## Compilation
 
