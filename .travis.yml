@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 sudo: required
 language: android
 
@@ -19,7 +19,7 @@ android:
 
 before_install:
   - sudo apt-get update
-  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+  - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
   - sudo apt-get install -y nodejs
   - sudo npm i -g ionic cordova@8.0.0
 
