@@ -1,9 +1,9 @@
-dist: bionic
+dist: xenial
 sudo: required
 language: android
 
 jdk:
-  - openjdk11
+  - openjdk8
   
 addons:
   sonarcloud:
@@ -31,6 +31,7 @@ install:
   
 script:
   - ionic cordova build android --prod --release
+  - export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
   - cd .. && sonar-scanner
 
 deploy:
