@@ -1,9 +1,9 @@
-dist: xenial
+dist: bionic
 sudo: required
 language: android
 
 jdk:
-  - oraclejdk8
+  - openjdk11
   
 addons:
   sonarcloud:
