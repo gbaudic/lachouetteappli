@@ -3,6 +3,7 @@ sudo: required
 language: android
 
 jdk:
+  - openjdk11
   - openjdk8
   
 addons:
