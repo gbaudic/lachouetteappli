@@ -4,7 +4,6 @@ language: android
 
 jdk:
   - openjdk11
-  - openjdk8
   
 addons:
   sonarcloud:
@@ -21,7 +20,8 @@ android:
 before_install:
   - sudo apt-get update
   - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-  - sudo apt-get install -y nodejs
+  - sudo apt-get install -y openjdk-8-jdk nodejs
+  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
   - sudo npm i -g ionic cordova@8.0.0
 
 install:
@@ -32,7 +32,7 @@ install:
   
 script:
   - ionic cordova build android --prod --release
-  - export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+  - export JAVA_HOME=~/openjdk11
   - cd .. && sonar-scanner
 
 deploy:
